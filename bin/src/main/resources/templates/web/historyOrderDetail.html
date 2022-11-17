@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<meta
+    http-equiv="content-type"
+    content="text/html;charset=utf-8"
+  />
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="author" content="mironcoder" />
+    <meta name="email" content="mironcoder@gmail.com" />
+    <meta name="profile" content="https://themeforest.net/user/mironcoder" />
+    <meta name="template" content="greeny" />
+    <meta name="title" content="greeny - Ecommerce Food Store HTML Template" />
+    <meta
+      name="keywords"
+      content="organic, food, shop, ecommerce, store, html, bootstrap, template, agriculture, vegetables, products, farm, grocery, natural, online"
+    />
+    <title>Web bán hàng nông sản</title>
+    <link rel="icon" href="images/favicon.png" />
+    <link rel="stylesheet" href="/fonts/flaticon/flaticon.css" />
+    <link rel="stylesheet" href="/fonts/icofont/icofont.min.css" />
+    <link rel="stylesheet" href="/fonts/fontawesome/fontawesome.min.css" />
+    <link rel="stylesheet" href="/vendor/venobox/venobox.min.css" />
+    <link rel="stylesheet" href="/vendor/slickslider/slick.min.css" />
+    <link rel="stylesheet" href="/vendor/niceselect/nice-select.min.css" />
+    <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/profile.css" />
+  </head>
+  <body>
+    
+    <!--************************************
+				Header Start
+		*************************************-->
+		<header th:replace="~{/web/fragments/header :: header}"></header>
+		<!--************************************
+				Header End
+		*************************************-->
+
+    <section
+      class="inner-section single-banner"
+      style="background: url(/images/single-banner.jpg) no-repeat center">
+      <div class="container">
+        <h2>thông tin tài khoản</h2>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
+          
+        </ol>
+      </div>
+    </section>
+    <section class="inner-section profile-part">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="account-card">
+              <div class="account-title">
+                <h4>Thông tin tài khoản</h4>
+              </div>
+              <div class="account-content">
+                <div class="row">
+                  <div class="col-lg-2">
+                    <div class="profile-image">
+                      <a href="#"><img src="/images/user.png" alt="user" /></a>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                      <label class="form-label">Họ và tên</label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        th:value="${user.name}"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                      <label class="form-label">Địa chỉ Email</label
+                      ><input
+                        class="form-control"
+                        type="email"
+                        th:value="${user.email}"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="col-lg-12">
+            <div class="account-card mb-0">
+              <div class="account-title">
+                <h4>Chi tiết đơn hàng</h4>
+                <a th:href="@{/profile}">
+                  Quay lại
+                </a>
+              </div>
+              <section class="inner-section checkout-part">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="account-card">
+                        <div class="account-content">
+                          <div class="table-scroll">
+                            <table class="table-list">
+                              <thead>
+                                <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">sản phẩm</th>
+                                  <th scope="col">Tên sản phẩm</th>
+                                  <th scope="col">Đơn giá</th>
+                                  <th scope="col">Số lượng</th>
+                                  <th scope="col">Tổng tiền</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr th:each="item,iState : ${orderDetail}">
+                                  <td class="table-serial"><h6>[[${iState.index + 1}]]</h6></td>
+                                  <td class="table-image">
+                                    <img th:src="@{'/loadImage?imageName='+${item.product.productImage}}" alt="product" />
+                                  </td>
+                                  <td class="table-name"><h6>[[${item.product.productName}]]</h6></td>
+                                  <td class="table-price"><h6>[[${#numbers.formatDecimal(item.price - (item.price * item.product.discount/100), 1, 'DEFAULT', 0, 'DEFAULT')}+ ' đ']]</h6></td>
+                                  <td class="table-address"><h6>[[${item.quantity}]]</h6></td>
+                                  <td class="table-brand"><h6>[[${#numbers.formatDecimal((item.price - (item.price * item.product.discount/100)) * item.quantity, 1, 'DEFAULT', 0, 'DEFAULT')}+ ' đ']]</h6></td>
+                                </tr>
+                                
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+          </div>
+        </div>
+    </section>
+    
+    <!-- chỉnh sửa profile -->
+    <div class="modal fade" id="profile-edit">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <button class="modal-close" data-bs-dismiss="modal">
+            <i class="icofont-close"></i>
+          </button>
+          <form class="modal-form">
+            <div class="form-title"><h3>edit profile info</h3></div>
+            <div class="form-group">
+              <label class="form-label">profile image</label
+              ><input class="form-control" type="file" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">name</label
+              ><input class="form-control" type="text" value="Miron Mahmud" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">email</label
+              ><input
+                class="form-control"
+                type="text"
+                value="mironcoder@gmail.com"
+              />
+            </div>
+            <button class="form-btn" type="submit">save profile info</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <section class="news-part"
+		style="background: url(/images/newsletter.jpg) no-repeat center">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-5 col-lg-6 col-xl-7">
+					<div class="news-text">
+						<h2>Nhận Chiết Khấu 20% Cho Người Đăng Ký</h2>
+						<p>Nhận Chiết Khấu 20% Cho Người Đăng Ký</p>
+					</div>
+				</div>
+				<div class="col-md-7 col-lg-6 col-xl-5">
+					<form class="news-form">
+						<input type="text" placeholder="Nhập Địa Chỉ Email Của Bạn" />
+						<button>
+							<span><i class="icofont-ui-email"></i>Gửi</span>
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="intro-part">
+		<div class="container">
+			<div class="row intro-content">
+				<div class="col-sm-6 col-lg-3">
+					<div class="intro-wrap">
+						<div class="intro-icon">
+							<i class="fas fa-truck"></i>
+						</div>
+						<div class="intro-content">
+							<h5>Giao Hàng Tận Nhà Miễn Phí</h5>
+							<p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<div class="intro-wrap">
+						<div class="intro-icon">
+							<i class="fas fa-sync-alt"></i>
+						</div>
+						<div class="intro-content">
+							<h5>Chính Sách Hoàn Trả</h5>
+							<p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<div class="intro-wrap">
+						<div class="intro-icon">
+							<i class="fas fa-headset"></i>
+						</div>
+						<div class="intro-content">
+							<h5>Hệ Thống Hỗ Trợ</h5>
+							<p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<div class="intro-wrap">
+						<div class="intro-icon">
+							<i class="fas fa-lock"></i>
+						</div>
+						<div class="intro-content">
+							<h5>Cách Thanh Toán An Toàn</h5>
+							<p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+    
+    
+    <!--************************************
+				Footer Start
+		*************************************-->
+		<footer th:replace="~{/web/fragments/footer :: footer}"></footer>
+				
+		<!--************************************
+				Footer End
+		*************************************-->
+		
+    <script src="/vendor/bootstrap/jquery-1.12.4.min.js"></script>
+    <script src="/vendor/bootstrap/popper.min.js"></script>
+    <script src="/vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="/vendor/countdown/countdown.min.js"></script>
+    <script src="/vendor/niceselect/nice-select.min.js"></script>
+    <script src="/vendor/slickslider/slick.min.js"></script>
+    <script src="/vendor/venobox/venobox.min.js"></script>
+    <script src="/js/nice-select.js"></script>
+    <script src="/js/countdown.js"></script>
+    <script src="/js/accordion.js"></script>
+    <script src="/js/venobox.js"></script>
+    <script src="/js/slick.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

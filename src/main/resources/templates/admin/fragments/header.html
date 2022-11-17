@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	<body>
+		<th:block th:fragment="header">
+			<div class="main-header">
+			<!-- Logo Header -->
+			<div class="logo-header" data-background-color="white">
+				<a th:href="@{/admin/home}" class="logo">
+					<img src="/images/logo_ad.png" width="180px" alt="navbar brand" class="navbar-brand">
+				</a>
+				<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon">
+						<i class="icon-menu"></i>
+					</span>
+				</button>
+				<button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+				<div class="nav-toggle">
+					<button class="btn btn-toggle toggle-sidebar">
+						<i class="icon-menu"></i>
+					</button>
+				</div>
+			</div>
+			<!-- End Logo Header -->
+	
+			<!-- Navbar Header -->
+			<nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+				
+				<div class="container-fluid">
+					
+					<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+						
+						<li class="nav-item dropdown hidden-caret" style="margin-right: 10px;">
+							<a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-bell" style="font-size: 24px;"></i>
+								<span class="notification" style="font-size: 14px;">[[${newDiary}]]</span>
+							</a>
+							<ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
+								<li>
+									<div style="color: #48abf7;font-size: 20px;" class="dropdown-title">
+										Bạn có <span>[[${newDiary}]]</span> đơn hàng mới
+									</div>
+								</li>
+								<th:block th:if="${newDiary}!=0">
+									<li>
+										<a style="color: green;font-size: 14px;" class="see-all" th:href="@{/admin/newOrder}">
+											Xem tất cả đơn hàng mới<i class="fa fa-angle-right"></i>
+										</a>
+									</li>
+								</th:block>
+								
+							</ul>
+						</li>
+						
+						<li class="nav-item dropdown hidden-caret">
+							<a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
+								<div class="avatar-sm">
+									<img src="/assets/img/05.png" alt="..." class="avatar-img rounded-circle">
+								</div>
+							</a>
+							<ul class="dropdown-menu dropdown-user animated fadeIn">
+								<div class="dropdown-user-scroll scrollbar-outer">
+									<li>
+										<div class="user-box">
+											<div class="avatar-lg"><img src="/assets/img/05.png" alt="image profile" class="avatar-img rounded"></div>
+											<div class="u-text">
+												<h4>Chào : [[${user.name}]]</h4>
+												
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" th:href="@{/logout}">Đăng xuất</a>
+									</li>
+								</div>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			<!-- End Navbar -->
+		</div>
+	</body>
+</html>

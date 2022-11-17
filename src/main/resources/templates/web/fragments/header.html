@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="" xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title></title>
+<meta charset="utf-8">
+</head>
+<body>
+
+	<th:block th:fragment= "header">
+	
+		<div class="backdrop"></div>
+		<a class="backtop fas fa-arrow-up" href="#"></a>
+		<div class="header-top">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-lg-5">
+						<div class="header-top-welcome">
+							<p>Chào mừng bạn đến với SportParadise !</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<header class="header-part">
+			<div class="container">
+				<div class="header-content">
+					<div class="header-media-group">
+						<button class="header-user">
+							<img src="/images/user.png" alt="user" />
+						</button>
+						<a th:href="@{/}"> <img src="/images/logo.png" alt="logo" />
+						</a>
+						<button class="header-src">
+							<i class="fas fa-search"></i>
+						</button>
+					</div>
+					
+					<a th:href="@{/}" class="header-logo">
+					<img src="/images/logo.png" alt="logo" />
+					</a>
+				
+					<th:block th:if="${#request.remoteUser}">
+						<a href="javascript:void(0);" class="header-widget" title="Tên của bạn">
+							<img src="/images/user.png" alt="user" />
+							<span>Chào <strong><em>  [[${user.name}]]!</em></strong></span>
+						</a>
+					</th:block>
+					
+					<form th:action="@{/searchProduct}" class="header-form">
+						<input type="text" name="keyword" th:value="${keyword}" placeholder="Tìm kiếm..." autocomplete="off" />
+						<button>
+							<i class="fas fa-search"></i>
+						</button>
+					</form>
+					
+					<div class="header-widget-group">
+						<th:block th:if="${#request.remoteUser}">
+						<a th:href="@{/profile}" class="header-widget" title="Trang cá nhân">
+							<i class="fas fa-user"></i>
+						</a>
+						</th:block>
+						<a th:href="@{/favorite}" class="header-widget" title="Yêu thích">
+							<i class="fas fa-heart"></i><sup th:text="${totalSave}" id="totalSave">0</sup>
+						</a>
+						<button class="header-widget header-cart" title="Giỏ hàng">
+							<i class="fas fa-shopping-basket"></i> <sup th:text="${totalCartItems}" id="totalCartItems">0</sup>
+						</button>
+					</div>
+				</div>
+			</div>
+		</header>
+		<nav class="navbar-part">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="navbar-content">
+							<ul class="navbar-list">
+								<li class="navbar-item dropdown"><a
+									class="navbar-link dropdown-arrow" href="/">Trang chủ</a>
+								</li>
+								<li class="navbar-item dropdown">
+									<a class="navbar-link dropdown-arrow" th:href="@{/contact}">Về SportParadise</a>
+								</li>
+								<li class="navbar-item dropdown">
+									<a class="navbar-link dropdown-arrow" th:href="@{/products}">Sản phẩm</a>
+								</li>
+								<li class="navbar-item dropdown">
+									<a class="navbar-link dropdown-arrow" href="javascript:void(0);">Danh mục</a>
+									<ul class="dropdown-position-list">
+										<li th:each="item : ${categoryList}">
+											<a th:href="@{/productByCategory(id=${item.categoryId})}">[[${item.categoryName}]]</a>
+										</li> 
+									</ul>
+								</li>
+								<li class="navbar-item dropdown">
+									<a class="navbar-link dropdown-arrow" th:href="@{/size}">Chọn Size</a>
+								</li>
+								<li class="navbar-item dropdown"><a
+									class="navbar-link dropdown-arrow" href="javascript:void(0);">Tài khoản</a>
+									<ul class="dropdown-position-list">
+										<th:block th:unless="${#request.remoteUser}">
+							              	<li><a th:href="@{/login}">Đăng nhập</a></li>
+											<li><a th:href="@{/register}">Đăng ký</a></li>
+											<li><a th:href="@{/forgotPassword}">Quên mật khẩu</a></li>
+							            </th:block>
+							            <th:block th:if="${#request.remoteUser}">
+											<li><a th:href="@{/profile}">Thông tin tài khoản</a></li>
+											<li><a th:href="@{/logout}">Đăng xuất</a></li>
+						              	</th:block>
+										
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+	
+		<!-- slide giỏ hàng -->
+		<aside class="cart-sidebar">
+			<div class="cart-header">
+				<div class="cart-total">
+					<i class="fas fa-shopping-basket"></i><span>Tổng số lượng giỏ hàng ([[${totalCartItems}]])</span>
+				</div>
+				<button class="cart-close">
+					<i class="icofont-close"></i>
+				</button>
+				
+			</div>
+			
+			<div th:unless="${totalCartItems!=0}" class="text-center">
+				<h4 style="color: #119744" class="mt-5">Hiện tại bạn chưa có sản phẩm nào trong giỏ hàng!</h4>
+				<h5 style="color: #119744">Hãy mua sắm đi nào!</h5>
+				<a th:href="@{/products}" style="text-decoration: underline;">Click tại đây!</a>
+			</div>
+			
+			<th:block th:if="${totalCartItems!=0}">
+			<ul class="cart-list">
+				<li class="cart-item" th:each="item : ${cartItems}">
+					<div class="cart-media">
+						<a th:href="@{/productDetail(id=${item.product.productId})}">
+							<img th:src="@{'/loadImage?imageName='+${item.product.productImage}}" alt="product" />
+						</a>
+					</div>
+					<div class="cart-info-group">
+						<div class="cart-info">
+							<h6>
+								<label>Tên sản phẩm :</label>
+								<a th:href="@{/productDetail(id=${item.product.productId})}" style="color: #119744">[[${item.product.productName}]]</a>
+							</h6>
+							<label>Size :</label>
+							<p style="display: inline;">[[${item.size}]]</p> <br>
+							<label>Đơn giá :</label>
+							<p style="display: inline;">[[${#numbers.formatDecimal(item.product.price - (item.product.price * item.product.discount/100), 1, 'DEFAULT', 0, 'DEFAULT')}+' đ']]</p>
+						</div>
+						<div class="cart-action-group">
+							<div class="product-action">
+								<label>Số lượng :</label>
+								<input class="action-input" title="Quantity Number" type="text"
+									name="quantity" th:value="${item.quantity}" />
+							</div>
+							<h6>[[${#numbers.formatDecimal((item.product.price - (item.product.price * item.product.discount/100)) * item.quantity, 1, 'DEFAULT', 0, 'DEFAULT')}+ ' đ']]</h6>
+						</div>
+					</div>
+				</li>
+			</ul>
+			<div class="cart-footer">
+				<a class="cart-checkout-btn" th:href="@{/checkout}"><span
+					class="checkout-label">Thanh Toán</span>
+				</a>
+			</div>
+			</th:block>
+		</aside>
+		
+	</th:block>
+</body>
+</html>

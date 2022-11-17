@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <meta
+    http-equiv="content-type"
+    content="text/html;charset=utf-8"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="author" content="mironcoder" />
+    <meta name="email" content="mironcoder@gmail.com" />
+    <meta name="profile" content="https://themeforest.net/user/mironcoder" />
+    <meta name="template" content="greeny" />
+    <meta name="title" content="greeny - Ecommerce Food Store HTML Template" />
+    <meta
+      name="keywords"
+      content="organic, food, shop, ecommerce, store, html, bootstrap, template, agriculture, vegetables, products, farm, grocery, natural, online"/>
+      
+    <title>Web bán hàng nông sản</title>
+    <link rel="icon" href="images/favicon.png" />
+    <link rel="stylesheet" href="fonts/flaticon/flaticon.css" />
+    <link rel="stylesheet" href="fonts/icofont/icofont.min.css" />
+    <link rel="stylesheet" href="fonts/fontawesome/fontawesome.min.css" />
+    <link rel="stylesheet" href="vendor/venobox/venobox.min.css" />
+    <link rel="stylesheet" href="vendor/slickslider/slick.min.css" />
+    <link rel="stylesheet" href="vendor/niceselect/nice-select.min.css" />
+    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/about.css" />
+  </head>
+  <body>
+    
+    <!--************************************
+				Header Start
+		*************************************-->
+		<header th:replace="~{/web/fragments/header :: header}"></header>
+		<!--************************************
+				Header End
+		*************************************-->
+
+    <section
+      class="inner-section single-banner"
+      style="background: url(images/single-banner.jpg) no-repeat center" >
+      <div class="container">
+        <h2>Giới thiệu</h2>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
+          
+        </ol>
+      </div>
+    </section>
+    
+    <section class="about-choose">
+      <div class="container">
+        <div class="row">
+          <div class="col-11 col-md-9 col-lg-7 col-xl-6 mx-auto">
+            <div class="section-heading">
+              <h2>Tại sao mọi người chọn cuộc sống hữu cơ hàng ngày với chúng tôi</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="choose-card">
+              <div class="choose-icon"><i class="icofont-fruits"></i></div>
+              <div class="choose-text">
+                <h4>100% thực phẩm hữu cơ tươi</h4>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing tempora
+                  pariatur provident animi error dignissimo cumque minus facere
+                  dolores cupiditate debitis
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="choose-card">
+              <div class="choose-icon">
+                <i class="icofont-vehicle-delivery-van"></i>
+              </div>
+              <div class="choose-text">
+                <h4>Giao hàng trong vòng một giờ</h4>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing tempora
+                  pariatur provident animi error dignissimo cumque minus facere
+                  dolores cupiditate debitis
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="choose-card">
+              <div class="choose-icon"><i class="icofont-loop"></i></div>
+              <div class="choose-text">
+                <h4>qChính sách hoàn trả nhanh chóng</h4>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing tempora
+                  pariatur provident animi error dignissimo cumque minus facere
+                  dolores cupiditate debitis
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="choose-card">
+              <div class="choose-icon"><i class="icofont-support"></i></div>
+              <div class="choose-text">
+                <h4>Nhóm hỗ trợ tức thì</h4>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing tempora
+                  pariatur provident animi error dignissimo cumque minus facere
+                  dolores cupiditate debitis
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="news-part"
+		style="background: url(images/newsletter.jpg) no-repeat center">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-5 col-lg-6 col-xl-7">
+					<div class="news-text">
+						<h2>Nhận Chiết Khấu 20% Cho Người Đăng Ký</h2>
+						<p>Nhận Chiết Khấu 20% Cho Người Đăng Ký</p>
+					</div>
+				</div>
+				<div class="col-md-7 col-lg-6 col-xl-5">
+					<form class="news-form">
+						<input type="text" placeholder="Nhập Địa Chỉ Email Của Bạn" />
+						<button>
+							<span><i class="icofont-ui-email"></i>Gửi</span>
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="intro-part">
+		<div class="container">
+			<div class="row intro-content">
+				<div class="col-sm-6 col-lg-3">
+					<div class="intro-wrap">
+						<div class="intro-icon">
+							<i class="fas fa-truck"></i>
+						</div>
+						<div class="intro-content">
+							<h5>Giao Hàng Tận Nhà Miễn Phí</h5>
+							<p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<div class="intro-wrap">
+						<div class="intro-icon">
+							<i class="fas fa-sync-alt"></i>
+						</div>
+						<div class="intro-content">
+							<h5>Chính Sách Hoàn Trả</h5>
+							<p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<div class="intro-wrap">
+						<div class="intro-icon">
+							<i class="fas fa-headset"></i>
+						</div>
+						<div class="intro-content">
+							<h5>Hệ Thống Hỗ Trợ</h5>
+							<p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<div class="intro-wrap">
+						<div class="intro-icon">
+							<i class="fas fa-lock"></i>
+						</div>
+						<div class="intro-content">
+							<h5>Cách Thanh Toán An Toàn</h5>
+							<p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+   <!--************************************
+				Footer Start
+		*************************************-->
+		<footer th:replace="~{/web/fragments/footer :: footer}"></footer>
+				
+		<!--************************************
+				Footer End
+		*************************************-->
+   
+   
+    <script src="vendor/bootstrap/jquery-1.12.4.min.js"></script>
+    <script src="vendor/bootstrap/popper.min.js"></script>
+    <script src="vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="vendor/countdown/countdown.min.js"></script>
+    <script src="vendor/niceselect/nice-select.min.js"></script>
+    <script src="vendor/slickslider/slick.min.js"></script>
+    <script src="vendor/venobox/venobox.min.js"></script>
+    <script src="js/nice-select.js"></script>
+    <script src="js/countdown.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/venobox.js"></script>
+    <script src="js/slick.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

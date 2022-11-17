@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta
+    http-equiv="content-type"
+    content="text/html;charset=utf-8"
+  />
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="author" content="mironcoder" />
+    <meta name="email" content="mironcoder@gmail.com" />
+    <meta name="profile" content="https://themeforest.net/user/mironcoder" />
+    <meta name="template" content="greeny" />
+    <meta name="title" content="greeny - Ecommerce Food Store HTML Template" />
+    <meta
+      name="keywords"
+      content="organic, food, shop, ecommerce, store, html, bootstrap, template, agriculture, vegetables, products, farm, grocery, natural, online"
+    />
+    <title>Web bán hàng nông sản</title>
+    <link rel="icon" href="images/favicon.png" />
+    <link rel="stylesheet" href="fonts/flaticon/flaticon.css" />
+    <link rel="stylesheet" href="fonts/icofont/icofont.min.css" />
+    <link rel="stylesheet" href="fonts/fontawesome/fontawesome.min.css" />
+    <link rel="stylesheet" href="vendor/venobox/venobox.min.css" />
+    <link rel="stylesheet" href="vendor/slickslider/slick.min.css" />
+    <link rel="stylesheet" href="vendor/niceselect/nice-select.min.css" />
+    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/wishlist.css" />
+  </head>
+  <body>
+
+	<!--************************************
+				Header Start
+		*************************************-->
+		<header th:replace="~{/web/fragments/header :: header}"></header>
+		<!--************************************
+				Header End
+		*************************************-->
+    
+    <section
+      class="inner-section single-banner"
+      style="background: url(images/single-banner.jpg) no-repeat center">
+      <div class="container">
+        <h2>Danh sách yêu thích</h2>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
+        </ol>
+      </div>
+    </section>
+    <section class="inner-section wishlist-part">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="table-scroll">
+            	<div th:unless="${totalSave!=0}" class="text-center">
+					<h3 style="color: #119744" class="mt-5">Hiện tại bạn chưa có sản phẩm yêu thích nào!</h3>
+					<h4 style="color: #119744">Hãy mua sắm đi nào!</h4>
+					<a th:href="@{/products}" style="text-decoration: underline;">Click tại đây!</a>
+				</div>
+              <table class="table-list" th:if="${totalSave!=0}">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Sản phẩm</th>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Đơn giá</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col">Thêm giỏ hàng</th>
+                    <th scope="col">Hành động</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr th:each="item,iState : ${favorites}">
+                    <td class="table-serial"><h6>[[${iState.index + 1}]]</h6></td>
+                    <td class="table-image">
+                      <img th:src="@{'/loadImage?imageName='+${item.product.productImage}}" alt="product" />
+                    </td>
+                    <td class="table-name"><h6>[[${item.product.productName}]]</h6></td>
+                    <td class="table-price">
+                      <h6>[[${#numbers.formatDecimal(item.product.price - (item.product.price * item.product.discount/100), 1, 'DEFAULT', 0, 'DEFAULT')}+' đ']]<small>/kg</small></h6>
+                    </td>
+                    <td class="table-status">
+                      <h6 class="stock-out" style="color: #119744">[[${item.product.quantity>0}?'Sản phẩm đang còn' : 'Đã hết hàng']]</h6>
+                    </td>
+                    <td class="table-shop">
+                      <a class="product-add1" title="Thêm giỏ hàng" th:href="@{/addToCart(productId=${item.product.productId})}">
+                        Thêm giỏ hàng
+                      </a>
+                      
+                    </td>
+                    <td class="table-action">
+                      <a
+                        class="view"
+                        th:href="@{/productDetail(id=${item.product.productId})}"
+                        title="Chi tiết sản phẩm">
+	                    <i class="fas fa-eye"></i>
+                      </a>
+                        
+                      <a class="trash" 
+                      	 th:href="@{/doUnFavorite(id=${item.product.productId})}"
+                      	 title="Xóa yêu thích">
+                        <i class="icofont-trash"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+    
+    <section class="news-part"
+		style="background: url(images/newsletter.jpg) no-repeat center">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-5 col-lg-6 col-xl-7">
+					<div class="news-text">
+						<h2>Nhận Chiết Khấu 20% Cho Người Đăng Ký</h2>
+						<p>Nhận Chiết Khấu 20% Cho Người Đăng Ký</p>
+					</div>
+				</div>
+				<div class="col-md-7 col-lg-6 col-xl-5">
+					<form class="news-form">
+						<input type="text" placeholder="Nhập Địa Chỉ Email Của Bạn" />
+						<button>
+							<span><i class="icofont-ui-email"></i>Gửi</span>
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section class="intro-part">
+		<div class="container">
+			<div class="row intro-content">
+				<div class="col-sm-6 col-lg-3">
+					<div class="intro-wrap">
+						<div class="intro-icon">
+							<i class="fas fa-truck"></i>
+						</div>
+						<div class="intro-content">
+							<h5>Giao Hàng Tận Nhà Miễn Phí</h5>
+							<p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<div class="intro-wrap">
+						<div class="intro-icon">
+							<i class="fas fa-sync-alt"></i>
+						</div>
+						<div class="intro-content">
+							<h5>Chính Sách Hoàn Trả</h5>
+							<p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<div class="intro-wrap">
+						<div class="intro-icon">
+							<i class="fas fa-headset"></i>
+						</div>
+						<div class="intro-content">
+							<h5>Hệ Thống Hỗ Trợ</h5>
+							<p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<div class="intro-wrap">
+						<div class="intro-icon">
+							<i class="fas fa-lock"></i>
+						</div>
+						<div class="intro-content">
+							<h5>Cách Thanh Toán An Toàn</h5>
+							<p>Lorem ipsum dolor sit amet adipisicing elit nobis.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+    
+    
+    <!--************************************
+				Footer Start
+		*************************************-->
+		<footer th:replace="~{/web/fragments/footer :: footer}"></footer>
+				
+		<!--************************************
+				Footer End
+		*************************************-->
+		
+		
+    <script src="vendor/bootstrap/jquery-1.12.4.min.js"></script>
+    <script src="vendor/bootstrap/popper.min.js"></script>
+    <script src="vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="vendor/countdown/countdown.min.js"></script>
+    <script src="vendor/niceselect/nice-select.min.js"></script>
+    <script src="vendor/slickslider/slick.min.js"></script>
+    <script src="vendor/venobox/venobox.min.js"></script>
+    <script src="js/nice-select.js"></script>
+    <script src="js/countdown.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/venobox.js"></script>
+    <script src="js/slick.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

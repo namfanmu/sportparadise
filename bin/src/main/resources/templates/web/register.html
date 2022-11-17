@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta
+    http-equiv="content-type"
+    content="text/html;charset=utf-8"
+  />
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="author" content="mironcoder" />
+    <meta name="email" content="mironcoder@gmail.com" />
+    <meta name="profile" content="https://themeforest.net/user/mironcoder" />
+    <meta name="template" content="greeny" />
+    <meta name="title" content="greeny - Ecommerce Food Store HTML Template" />
+    <meta
+      name="keywords"
+      content="organic, food, shop, ecommerce, store, html, bootstrap, template, agriculture, vegetables, products, farm, grocery, natural, online"
+    />
+    <title>Web bán hàng nông sản</title>
+    <link rel="icon" href="images/favicon.png" />
+    <link rel="stylesheet" href="fonts/flaticon/flaticon.css" />
+    <link rel="stylesheet" href="fonts/icofont/icofont.min.css" />
+    <link rel="stylesheet" href="fonts/fontawesome/fontawesome.min.css" />
+    <link rel="stylesheet" href="vendor/venobox/venobox.min.css" />
+    <link rel="stylesheet" href="vendor/slickslider/slick.min.css" />
+    <link rel="stylesheet" href="vendor/niceselect/nice-select.min.css" />
+    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/user-auth.css" />
+  </head>
+  <body>
+    <section class="user-form-part">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12 col-sm-10 col-md-12 col-lg-12 col-xl-10">
+            <div class="user-form-logo">
+              <a th:href="@{/}"><img src="images/logo.png" alt="logo" /></a>
+            </div>
+            <div class="user-form-card">
+              <div class="user-form-title">
+                <h2>Đăng Ký Ngay!</h2>
+                <p>Thiết Lập Một Tài Khoản Mới</p>
+              </div>
+              <div class="user-form-group">
+                <ul class="user-form-social">
+                
+                  <li>
+                    <a class="facebook" href="javascript:void(0);">
+                    	<i class="fab fa-facebook-f"></i>Join with facebook
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a class="google" href="javascript:void(0);">
+                    	<i class="fab fa-google"></i>Join with google
+                    </a>
+                  </li>
+                  
+                </ul>
+                <div class="user-form-divider"><p>hoặc</p></div>
+                
+                <form th:action="@{/register}" method="post" th:object="${user}" class="user-form">
+                    <div class="form-group">
+                        <input
+                            type="email"
+                            th:field="*{email}" 
+                            id="email"
+                            class="form-control"
+                            placeholder="Địa chỉ Email"
+                            autocomplete="off"
+                            required="required"
+                        />
+                        <small th:if="${error}" th:text="${error}" class="text-danger"></small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input
+                            type="text"
+                            th:field="*{name}"
+                            id="name"
+                            class="form-control"
+                            placeholder="Họ và tên"
+                            autocomplete="off"
+                            required="required"
+                        />
+                    </div>
+                  
+                    <div class="form-group">
+                        <input
+                            type="password"
+                            th:field="*{password}"
+                            class="form-control"
+                            id="myPass"
+                            name="password"
+                            placeholder="Mật khẩu"
+                            required="required"
+                        />
+                    </div>
+                    
+                    <div class="form-check mb-3">
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            value=""
+                            onclick="hidePass()"/>
+                        <label class="form-check-label" for="check" >Hiển thị mật khẩu</label>
+                  </div>
+                  
+                  <div class="form-button">
+                    <button type="submit">Đăng Ký</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="user-form-remind">
+              <p>Bạn đã có tài khoản?<a th:href="@{/login}">Đăng nhập tại đây</a></p>
+            </div>
+            <div class="user-form-footer">
+              <p>Greeny | &COPY; Developer by <a href="javascript:void(0);">DongTHD</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <script>
+		function hidePass() {
+			var x = document.getElementById("myPass");
+			if (x.type === "password") {
+				x.type = "text";
+			} else {
+				x.type = "password";
+			}
+		}
+	</script>
+    
+    <script src="vendor/bootstrap/jquery-1.12.4.min.js"></script>
+    <script src="vendor/bootstrap/popper.min.js"></script>
+    <script src="vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="vendor/countdown/countdown.min.js"></script>
+    <script src="vendor/niceselect/nice-select.min.js"></script>
+    <script src="vendor/slickslider/slick.min.js"></script>
+    <script src="vendor/venobox/venobox.min.js"></script>
+    <script src="js/nice-select.js"></script>
+    <script src="js/countdown.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/venobox.js"></script>
+    <script src="js/slick.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

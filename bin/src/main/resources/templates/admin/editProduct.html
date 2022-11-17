@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta charset="UTF-8" />
+	<title>Greeny - Trang quản trị</title>
+	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+	<link rel="icon" href="/assets/img/icon.ico" type="image/x-icon"/>
+	
+	<!-- Fonts and icons -->
+	<script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+	<script>
+		WebFont.load({
+			google: {"families":["Lato:300,400,700,900"]},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css']},
+			active: function() {
+				sessionStorage.fonts = true;
+			}
+		});
+	</script>
+
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/assets/css/atlantis.min.css">
+	<!-- CSS Just for demo purpose, don't include it in your project -->
+	<link rel="stylesheet" href="/assets/css/demo.css">
+</head>
+<body>
+	<div class="wrapper">
+	<!-- Header -->
+	
+	<th:block th:replace="~{admin/fragments/header :: header}"></th:block>
+	
+	<!-- End Header -->
+	
+	<!-- Navbar -->
+	
+	<th:block th:replace="~{admin/fragments/navbar :: navbar}"></th:block>
+	
+	<!-- End Navbar -->
+	
+	<div class="main-panel">
+		<div class="content">
+			<div class="page-inner">
+				<div class="page-header">
+					<h4 class="page-title">Quản lý sản phẩm</h4>
+					<ul class="breadcrumbs">
+						<li class="nav-home">
+							<a href="#">
+								<i class="flaticon-home"></i>
+							</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
+						</li>
+						<li class="nav-item">
+							<a th:href="@{/admin/home}">Trang chủ</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
+						</li>
+						<li class="nav-item">
+							<a href="#">Quản lý sản phẩm</a>
+						</li>
+					</ul>
+				</div>
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<div class="d-flex align-items-center">
+									<h4 class="card-title" style="text-decoration: underline;">Quản lý sản phẩm</h4>
+								</div>
+							</div>
+							<div class="card-header">
+								<section class="row">
+						           <div class="col-9 offset-1">
+						             <form th:action="@{/admin/addProduct}" th:object="${product}" method="post" enctype="multipart/form-data">
+										<div class="row">
+											<div class="col-sm-12">
+												<div class="form-group form-group-default">
+													<label>Tên sản phẩm</label>
+													<input th:field="*{productName}" id="productName" type="text" class="form-control" placeholder="Tên sản phẩm...">
+												</div>
+											</div>
+											<div class="col-md-6 pr-0">
+												<div class="form-group form-group-default">
+													<label>Thể loại</label>
+													<select class="form-control"
+														 name="category" th:field="*{category.categoryId}" id="categoryId">
+														<option th:each="item : ${categoryList}"
+		  													th:value="${item.categoryId}" th:text="${item.categoryName}"
+															th:selected="${item.categoryId == product.category.categoryId}">
+															Category Name
+														</option>
+													</select>
+												</div>
+											</div>
+											<div class="col-md-6 pr-0">
+												<div class="form-group form-group-default">
+													<label>Đơn giá</label>
+													<input th:field="*{price}" id="price" min = 0 type="number" class="form-control" placeholder="Đơn giá">
+												</div>
+											</div>
+											<div class="col-md-6 pr-0">
+												<div class="form-group form-group-default">
+													<label>Số lượng</label>
+													<input th:field="*{quantity}" id="quantity" min = 0 type="number" class="form-control" placeholder="Số lượng">
+												</div>
+											</div>
+											<div class="col-md-6 pr-0">
+												<div class="form-group form-group-default">
+													<label>Giảm giá</label>
+													<input th:field="*{discount}" id="discount" min = 0 type="number" class="form-control" placeholder="giảm giá">
+												</div>
+											</div>
+											<div class="col-md-6 pr-0">
+												<div class="form-group form-group-default">
+													<label>Ngày thêm</label>
+													<input th:field="*{enteredDate}" id="enteredDate" type="date" class="form-control" placeholder="ngày thêm">
+												</div>
+											</div>
+											<div class="col-sm-12">
+												<div class="form-group form-group-default">
+													<label>Images</label>
+													<input type="file" id="productImage" name="file" class="form-control">
+												</div>
+											</div>
+											<div class="col-sm-12">
+												<div class="form-group form-group-default">
+													<label>Mô tả sản phẩm</label>
+													<textarea th:field="*{description}" id="description" class="form-control" placeholder="Mô tả sản phẩm"></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer no-bd">
+											<button type="submit" id="" class="btn btn-primary">Cập nhật</button>
+											<button type="submit" class="btn btn-danger" data-dismiss="modal" formaction="/admin/products" formmethod="get">Hủy</button>
+										</div>
+									</form>
+						           </div>
+								</section>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		<footer class="footer">
+			<div class="container-fluid">
+				<nav class="pull-left">
+					<ul class="nav">
+						<li class="nav-item">
+							<a class="nav-link" href="javascript:void(0);">
+								GREENY-SHOP
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="javascript:void(0);">
+								Help
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="javascript:void(0);">
+								Licenses
+							</a>
+						</li>
+					</ul>
+				</nav>
+				<div class="copyright ml-auto">
+					2021, made with <i class="fa fa-heart heart text-danger"></i> by <a href="javascript:void(0);">GREENY-SHOP</a>
+				</div>				
+			</div>
+		</footer>
+	</div>
+	
+	
+	
+
+	</div>
+	<!--   Core JS Files   -->
+	<script src="/assets/js/core/jquery.3.2.1.min.js"></script>
+	<script src="/assets/js/core/popper.min.js"></script>
+	<script src="/assets/js/core/bootstrap.min.js"></script>
+	<!-- jQuery UI -->
+	<script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+	<script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+	
+	<!-- jQuery Scrollbar -->
+	<script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+	<!-- Datatables -->
+	<script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+	<!-- Atlantis JS -->
+	<script src="/assets/js/atlantis.min.js"></script>
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="/assets/js/setting-demo2.js"></script>
+</body>
+</html>

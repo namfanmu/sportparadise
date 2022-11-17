@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta charset="UTF-8" />
+	<title>Greeny - Trang quản trị</title>
+	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+	<link rel="icon" href="/assets/img/icon.ico" type="image/x-icon"/>
+	
+	<!-- Fonts and icons -->
+	<script src="/assets/js/plugin/webfont/webfont.min.js"></script>
+	<script>
+		WebFont.load({
+			google: {"families":["Lato:300,400,700,900"]},
+			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['/assets/css/fonts.min.css']},
+			active: function() {
+				sessionStorage.fonts = true;
+			}
+		});
+	</script>
+
+	<!-- CSS Files -->
+	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/assets/css/atlantis.min.css">
+	<!-- CSS Just for demo purpose, don't include it in your project -->
+	<link rel="stylesheet" href="/assets/css/demo.css">
+</head>
+<body>
+	<div class="wrapper">
+	<!-- Header -->
+	
+	<th:block th:replace="~{admin/fragments/header :: header}"></th:block>
+	
+	<!-- End Header -->
+	
+	<!-- Navbar -->
+	
+	<th:block th:replace="~{admin/fragments/navbar :: navbar}"></th:block>
+	
+	<!-- End Navbar -->
+		
+	<div class="main-panel">
+		<div class="content">
+			<div class="page-inner">
+				<div class="page-header">
+					<h4 class="page-title">Quản lý đơn hàng</h4>
+					<ul class="breadcrumbs">
+						<li class="nav-home">
+							<a href="javascript:void(0);">
+								<i class="flaticon-home"></i>
+							</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
+						</li>
+						<li class="nav-item">
+							<a href="javascript:void(0);">Trang chủ</a>
+						</li>
+						<li class="separator">
+							<i class="flaticon-right-arrow"></i>
+						</li>
+						<li class="nav-item">
+							<a href="#">Quản lý đơn hàng</a>
+						</li>
+					</ul>
+				</div>
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<div class="d-flex align-items-center">
+									<h4 class="card-title" style="text-decoration: underline;">Quản lý đơn hàng</h4>
+									<a th:href="@{/admin/export}" style="padding-left: 20px;">
+										<h4 class="card-title" style="text-decoration: underline; color: green;">Xuất file Excel</h4>
+									</a>
+								</div>
+							</div>
+							<div class="alert alert-success row col-12"
+									th:if="${message}" th:text="${message}">
+								</div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table id="add-row" class="display table table-striped table-hover" >
+										<thead>
+											<tr>
+												<th>Mã đơn hàng</th>
+												<th>Tên khách hàng</th>
+												<th>Số ĐT</th>
+												<th>Ngày đặt hàng</th>
+												<th>Địa chỉ</th>
+												<th>Tổng tiền</th>
+												<th>Chi tiết đơn hàng</th>
+												<th style="width: 10%">Hành động</th>
+											</tr>
+										</thead>
+										<tfoot>
+											<tr>
+												<th>Mã đơn hàng</th>
+												<th>Tên khách hàng</th>
+												<th>Số ĐT</th>
+												<th>Ngày đặt hàng</th>
+												<th>Địa chỉ</th>
+												<th>Tổng tiền</th>
+												<th>Chi tiết đơn hàng</th>
+												<th style="width: 10%">Hành động</th>
+											</tr>
+										</tfoot>
+										<tbody>
+											<tr th:each="item : ${orderDetails}">
+												<td>[[${item.orderId}]]</td>
+												<td>[[${item.user.name}]]</td>
+												<td>[[${item.phone}]]</td>
+												<td>[[${item.orderDate}]]</td>
+												<td>[[${item.address}]]</td>
+												<td th:text="${#numbers.formatDecimal(item.amount, 1, 'DEFAULT', 0, 'DEFAULT')}+' đ'"></td>
+												<td>
+													<a th:href="@{'/admin/order/detail/'+${item.orderId}}">
+														<i class="fa fa-info-circle"> Chi tiết đơn hàng</i>
+													</a>
+												</td>
+												
+												<td class="text-center">
+													<div th:if="${item.status==0}">
+														<a style="cursor: pointer; color: #0e76a8;" th:data-id="${item.orderId}"
+															onclick="showConfigConfirmModalDialog(this.getAttribute('data-id'))">
+															<i class="fa fa-check-circle"> Xác nhận</i>
+														</a>
+														<hr>
+														<a style="cursor: pointer;" th:data-id="${item.orderId}"
+															onclick="showConfigCancelModalDialog(this.getAttribute('data-id'))">
+															<i class="fas fa-trash-alt text-danger"> Hủy đơn</i>
+														</a>
+													</div>
+													
+													<div th:if="${item.status==1}">
+														<a style="cursor: pointer; color: #ffab10;" th:data-id="${item.orderId}"
+															onclick="showConfigDeliveredModalDialog(this.getAttribute('data-id'))">
+															<i class="fa fa-check-circle"> Xác nhận đã giao</i>
+														</a>
+													</div>
+													
+													<div th:if="${item.status==2}" style="cursor: pointer; color: #119744;">
+														<i class="fa fa-check-circle"> Đã thanh toán</i>
+													</div>
+													
+													<div th:if="${item.status==3}" style="cursor: pointer; color: #ff3838;">
+														<i class="fas fa-ban"> Đã huỷ</i>
+													</div>
+												
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									
+									<!-- Xác nhận đơn -->
+									<script>
+										function showConfigConfirmModalDialog(id) {
+											$('#idConfirm').text(id);
+											$('#yesOptionConfirm').attr('href', '/admin/order/confirm/' + id);
+											$('#configmationConfirmId').modal('show');
+										}
+									</script>
+							
+									<!-- Modal -->
+									<div class="modal" id="configmationConfirmId">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">Xác nhận</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<p>
+														Bạn có muốn xác nhận đơn hàng có mã "<span id="idConfirm"></span>" ?
+													</p>
+												</div>
+												<div class="modal-footer">
+													<a id="yesOptionConfirm" type="button" class="btn btn-info">Có</a>
+													<button type="button" class="btn btn-danger"
+														data-dismiss="modal">Không</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<!-- Huỷ đơn hàng -->
+									<script>
+										function showConfigCancelModalDialog(id) {
+											$('#idCancel').text(id);
+											$('#yesOptionCanCel').attr('href', '/admin/order/cancel/' + id);
+											$('#configmationCancelId').modal('show');
+										}
+									</script>
+							
+									<!-- Modal -->
+									<div class="modal" id="configmationCancelId">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">Xác nhận</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<p>
+														Bạn có muốn huỷ đơn hàng có mã "<span id="idCancel"></span>" ?
+													</p>
+												</div>
+												<div class="modal-footer">
+													<a id="yesOptionCanCel" type="button" class="btn btn-info">Có</a>
+													<button type="button" class="btn btn-danger"
+														data-dismiss="modal">Không</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<!-- Xác nhận đã giao -->
+									<script>
+										function showConfigDeliveredModalDialog(id) {
+											$('#idDelivered').text(id);
+											$('#yesOptionDelivered').attr('href', '/admin/order/delivered/' + id);
+											$('#configmationDeliveredId').modal('show');
+										}
+									</script>
+							
+									<!-- Modal -->
+									<div class="modal" id="configmationDeliveredId">
+										<div class="modal-dialog" role="document">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title">Xác nhận</h5>
+													<button type="button" class="close" data-dismiss="modal"
+														aria-label="Close">
+														<span aria-hidden="true">&times;</span>
+													</button>
+												</div>
+												<div class="modal-body">
+													<p>
+														Bạn có muốn xác nhận đơn hàng có mã "<span id="idDelivered"></span>" ?
+													</p>
+												</div>
+												<div class="modal-footer">
+													<a id="yesOptionDelivered" type="button" class="btn btn-info">Có</a>
+													<button type="button" class="btn btn-danger"
+														data-dismiss="modal">Không</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<!-- end task -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<footer class="footer">
+			<div class="container-fluid">
+				<nav class="pull-left">
+					<ul class="nav">
+						<li class="nav-item">
+							<a class="nav-link" href="javascript:void(0);">
+								GREENY-SHOP
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="javascript:void(0);">
+								Help
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="javascript:void(0);">
+								Licenses
+							</a>
+						</li>
+					</ul>
+				</nav>
+				<div class="copyright ml-auto">
+					2021, made with <i class="fa fa-heart heart text-danger"></i> by <a href="javascript:void(0);">GREENY-SHOP</a>
+				</div>				
+			</div>
+		</footer>
+	</div>
+		
+		<!-- Custom template | don't include it in your project! -->
+		<!-- <div class="custom-template">
+			<div class="title">Settings</div>
+			<div class="custom-content">
+				<div class="switcher">
+					<div class="switch-block">
+						<h4>Logo Header</h4>
+						<div class="btnSwitch">
+							<button type="button" class="changeLogoHeaderColor" data-color="dark"></button>
+							<button type="button" class="selected changeLogoHeaderColor" data-color="blue"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="purple"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="light-blue"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="green"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="orange"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="red"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="white"></button>
+							<br/>
+							<button type="button" class="changeLogoHeaderColor" data-color="dark2"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="blue2"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="purple2"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="light-blue2"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="green2"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="orange2"></button>
+							<button type="button" class="changeLogoHeaderColor" data-color="red2"></button>
+						</div>
+					</div>
+					<div class="switch-block">
+						<h4>Navbar Header</h4>
+						<div class="btnSwitch">
+							<button type="button" class="changeTopBarColor" data-color="dark"></button>
+							<button type="button" class="changeTopBarColor" data-color="blue"></button>
+							<button type="button" class="changeTopBarColor" data-color="purple"></button>
+							<button type="button" class="changeTopBarColor" data-color="light-blue"></button>
+							<button type="button" class="changeTopBarColor" data-color="green"></button>
+							<button type="button" class="changeTopBarColor" data-color="orange"></button>
+							<button type="button" class="changeTopBarColor" data-color="red"></button>
+							<button type="button" class="changeTopBarColor" data-color="white"></button>
+							<br/>
+							<button type="button" class="changeTopBarColor" data-color="dark2"></button>
+							<button type="button" class="selected changeTopBarColor" data-color="blue2"></button>
+							<button type="button" class="changeTopBarColor" data-color="purple2"></button>
+							<button type="button" class="changeTopBarColor" data-color="light-blue2"></button>
+							<button type="button" class="changeTopBarColor" data-color="green2"></button>
+							<button type="button" class="changeTopBarColor" data-color="orange2"></button>
+							<button type="button" class="changeTopBarColor" data-color="red2"></button>
+						</div>
+					</div>
+					<div class="switch-block">
+						<h4>Sidebar</h4>
+						<div class="btnSwitch">
+							<button type="button" class="selected changeSideBarColor" data-color="white"></button>
+							<button type="button" class="changeSideBarColor" data-color="dark"></button>
+							<button type="button" class="changeSideBarColor" data-color="dark2"></button>
+						</div>
+					</div>
+					<div class="switch-block">
+						<h4>Background</h4>
+						<div class="btnSwitch">
+							<button type="button" class="changeBackgroundColor" data-color="bg2"></button>
+							<button type="button" class="changeBackgroundColor selected" data-color="bg1"></button>
+							<button type="button" class="changeBackgroundColor" data-color="bg3"></button>
+							<button type="button" class="changeBackgroundColor" data-color="dark"></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="custom-toggle">
+				<i class="flaticon-settings"></i>
+			</div>
+		</div> -->
+		<!-- End Custom template -->
+	</div>
+	<!--   Core JS Files   -->
+	<script src="/assets/js/core/jquery.3.2.1.min.js"></script>
+	<script src="/assets/js/core/popper.min.js"></script>
+	<script src="/assets/js/core/bootstrap.min.js"></script>
+	<!-- jQuery UI -->
+	<script src="/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+	<script src="/assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+	
+	<!-- jQuery Scrollbar -->
+	<script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+	<!-- Datatables -->
+	<script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+	<!-- Atlantis JS -->
+	<script src="/assets/js/atlantis.min.js"></script>
+	<!-- Atlantis DEMO methods, don't include it in your project! -->
+	<script src="/assets/js/setting-demo2.js"></script>
+	<script >
+		$(document).ready(function() {
+			$('#basic-datatables').DataTable({
+			});
+
+			$('#multi-filter-select').DataTable( {
+				"pageLength": 5,
+				initComplete: function () {
+					this.api().columns().every( function () {
+						var column = this;
+						var select = $('<select class="form-control"><option value=""></option></select>')
+						.appendTo( $(column.footer()).empty() )
+						.on( 'change', function () {
+							var val = $.fn.dataTable.util.escapeRegex(
+								$(this).val()
+								);
+
+							column
+							.search( val ? '^'+val+'$' : '', true, false )
+							.draw();
+						} );
+
+						column.data().unique().sort().each( function ( d, j ) {
+							select.append( '<option value="'+d+'">'+d+'</option>' )
+						} );
+					} );
+				}
+			});
+
+			// Add Row
+			$('#add-row').DataTable({
+				"pageLength": 5,
+			});
+
+			var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
+
+			$('#addRowButton').click(function() {
+				$('#add-row').dataTable().fnAddData([
+					$("#addName").val(),
+					$("#addPosition").val(),
+					$("#addOffice").val(),
+					action
+					]);
+				$('#addRowModal').modal('hide');
+
+			});
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="sidebar sidebar-style-2" th:fragment="navbar">			
+		<div class="sidebar-wrapper scrollbar scrollbar-inner">
+			<div class="sidebar-content">
+				<div class="user">
+					<div class="avatar-sm float-left mr-2">
+						<img src="../assets/img/05.png" alt="..." class="avatar-img rounded-circle">
+					</div>
+					<div class="info">
+						<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+							<span>
+								Tên : [[${user.name}]]
+								<span class="user-level">Administrator</span>
+							</span>
+						</a>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				<ul class="nav nav-primary">
+					<li class="nav-item active">
+						<a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
+							<i class="fas fa-home"></i>
+							<p>Trang chủ</p>
+							<span class="caret"></span>
+						</a>
+						<div class="collapse" id="dashboard">
+							<ul class="nav nav-collapse">
+								<li>
+									<a th:href="@{/admin/home}">
+										<span class="sub-item">Trang chủ</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-section">
+						<span class="sidebar-mini-icon">
+							<i class="fa fa-ellipsis-h"></i>
+						</span>
+						<h4 class="text-section">Các thành phần</h4>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="collapse" href="#tables">
+							<i class="fas fa-table"></i>
+							<p>Hệ Thống Quản Lý</p>
+							<span class="caret"></span>
+						</a>
+						<div class="collapse" id="tables">
+							<ul class="nav nav-collapse">
+								<li>
+									<a th:href="@{/admin/categories}">
+										<span class="sub-item">Quản Lý Thể Loại</span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/admin/products}">
+										<span class="sub-item">Quản Lý Sản Phẩm</span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/admin/orders}">
+										<span class="sub-item">Quản Lý Đơn Hàng</span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/admin/users}">
+										<span class="sub-item">Quản Lý Khách Hàng</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a data-toggle="collapse" href="#charts">
+							<i class="far fa-chart-bar"></i>
+							<p>Thống Kê Doanh Số</p>
+							<span class="caret"></span>
+						</a>
+						<div class="collapse" id="charts">
+							<ul class="nav nav-collapse">
+								<li>
+									<a th:href="@{/admin/reports}">
+										<span class="sub-item">Thống Kê sản Phẩm</span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/admin/reportCategory}">
+										<span class="sub-item">Thống kê thể loại</span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/admin/reportYear}">
+										<span class="sub-item">Thống kê theo năm</span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/admin/reportMonth}">
+										<span class="sub-item">Thống kê theo tháng</span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/admin/reportQuarter}">
+										<span class="sub-item">Thống kê theo quý</span>
+									</a>
+								</li>
+								<li>
+									<a th:href="@{/admin/reportOrderCustomer}">
+										<span class="sub-item">Thống kê theo khách hàng</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

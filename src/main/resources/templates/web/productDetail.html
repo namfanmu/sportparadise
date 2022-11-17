@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <meta
+    http-equiv="content-type"
+    content="text/html;charset=utf-8"
+  />
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    
+    <title>SportParadise-Thiên đường thể thao</title>
+    <link rel="icon" href="images/favicon.png" />
+    <link rel="stylesheet" href="fonts/flaticon/flaticon.css" />
+    <link rel="stylesheet" href="fonts/icofont/icofont.min.css" />
+    <link rel="stylesheet" href="fonts/fontawesome/fontawesome.min.css" />
+    <link rel="stylesheet" href="vendor/venobox/venobox.min.css" />
+    <link rel="stylesheet" href="vendor/slickslider/slick.min.css" />
+    <link rel="stylesheet" href="vendor/niceselect/nice-select.min.css" />
+    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/product-details.css" />
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    
+  </head>
+  <body>
+   
+    <!--************************************
+				Header Start
+		*************************************-->
+		<header th:replace="~{/web/fragments/header :: header}"></header>
+		<!--************************************
+				Header End
+		*************************************-->
+    
+    <section
+      class="single-banner inner-section"
+      style="background: url(images/single-banner.jpg) no-repeat center">
+      <div class="container">
+        <h2>Chi tiết sản phẩm</h2>
+      
+      </div>
+    </section>
+    
+    <section class="inner-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="details-gallery">
+              <div class="details-label-group">
+                <label class="details-label new">new</label>
+                <label class="details-label off">- [[${product.discount + '%'}]]</label>
+              </div>
+              <ul class="details-preview">
+                <li><img th:src="@{'/loadImage?imageName='+${product.productImage}}" alt="product"/></li>
+              </ul>
+          
+            </div>
+          </div>
+          <div class="col-lg-6">
+            
+            <div class="details-content">
+              <h3 class="details-name">
+                <a href="#">[[${product.productName}]]</a>
+              </h3>
+              <div class="details-meta">
+                <p>Mã sản phẩm:<span>[[${product.productId}]]</span></p>
+                <p>Danh mục:<a href="#">[[${product.category.categoryName}]]</a></p>
+              </div>
+              <div class="details-rating">
+              
+              	<th:block th:if="${listComment.isEmpty()}">
+              		<p>Chưa có đánh giá!</p>
+              	</th:block>
+              	<th:block th:unless="${listComment.isEmpty()}">
+              		<p style="margin-right: 10px; color: orange;">[[${avgRating}]]</p>
+              		<ul> 
+						<li class="fas fa-star" id="star_{{forloop.counter}}_1"></li>
+						<li class="fas fa-star" id="star_{{forloop.counter}}_2"></li>
+						<li class="fas fa-star" id="star_{{forloop.counter}}_3"></li>
+						<li class="fas fa-star" id="star_{{forloop.counter}}_4"></li>
+						<li class="fas fa-star" id="star_{{forloop.counter}}_5"></li>
+						<script th:inline="javascript">
+						/*<![CDATA[*/
+						    $(document).ready(function() {
+								var rating = /*[(${avgRating})]*/ 'default'; 
+					            let star = document.getElementById('star')
+					            for (let i = 0; i < rating; i++) {
+									// Hiển thị rating(sao vàng)
+					                document.getElementById("star_{{forloop.counter}}_" + (i+1) ).style.color='orange'
+					            }
+					        });
+						/*]]>*/
+						</script>
+					</ul>
+              	</th:block>
+              	
+              	<th:block th:unless="${listOrderDetails.isEmpty()}">
+              		<span style="margin: 0px 20px;font-weight: bold;color: grey;">|</span> 
+              		<span>Đã bán </span> <span style="margin: 0px 5px;">[[${soldQuantity}]]</span> <span> sản phẩm.</span>
+              	</th:block>
+              	<th:block th:if="${listOrderDetails.isEmpty()}">
+              		<span style="margin: 0px 20px;font-weight: bold;color: grey;">|</span> 
+              		<span>Đã bán </span> <span style="margin: 0px 5px;">0</span> <span> sản phẩm.</span>
+              	</th:block>
+              	
+                
+              </div>
+              <h3 class="details-price">
+                <del>[[${#numbers.formatDecimal(product.price, 1, 'DEFAULT', 0, 'DEFAULT')}+'đ']]</del>
+                <span>[[${#numbers.formatDecimal(product.price - (product.price * product.discount/100), 1, 'DEFAULT', 0, 'DEFAULT')}+'đ']]<small></small></span>
+              </h3>
+             
+              
+              <div class="details-list-group">
+                <label class="details-list-title">Share:</label>
+                <ul class="details-share-list">
+                  <li>
+                    <a href="javascript:void(0);" class="icofont-facebook" title="Facebook"></a>
+                  </li>
+               
+                  <li>
+                    <a href="javascript:void(0);" class="icofont-instagram" title="Instagram"></a>
+                  </li>
+                </ul>
+                
+              </div>
+        
+                <div>
+                <form th:action="@{/addToCart(productId=${product.productId})}" method="post">
+	                <div class="details-list-group">
+	                	<label style="margin-right: 15px;">Số lượng:</label>
+						<input id="quantity" min="1" th:max="${product.quantity}" type="number" class="form-control" placeholder="0" style="width: 80px;" name="quantity">
+						<span style="color: var(--primary);padding-left: 10px;">[[${product.quantity}]] sản phẩm có sẵn</span>
+		                <th:block th:if="${product.category.sizeId.equals('1')}">
+			                <label style="margin: 0px 15px 0px 30px;" class="details-list-title">Kích thước:</label>
+							<select name="size" class="form-select" aria-label="Default select example" style="width: 65px;" id="size">
+							  <option value="S">S</option>
+							  <option value="M">M</option>
+							  <option value="L">L</option>
+							  <option value="XL">XL</option>
+							</select>
+		                </th:block>
+		                <th:block th:if="${product.category.sizeId.equals('2')}">
+			                <label style="margin: 0px 15px 0px 30px;" class="details-list-title">Kích thước:</label>
+							<select name="size" class="form-select" aria-label="Default select example" style="width: 65px;" id="size">
+							  <option value="40">40</option>
+							  <option value="41">41</option>
+							  <option value="42">42</option>
+							  <option value="43">43</option>
+							</select>
+		                </th:block>
+		                <style>
+		                	.choose-size:hover {
+								color:rgb(0, 198, 198);
+								font-weight: bold;
+							}
+		                </style>
+	                </div>
+                	<div class="choose-size" style="margin-bottom: 30px;">
+	                	<a th:href="@{/size}">Hướng dẫn chọn size</a>
+	                </div>
+		              <div class="details-list-group">
+		               
+		                <button name="action" value="ADD" type="submit" class="product-add1" style="background-color: rgb(0, 198, 198);margin-right: 90px;" title="Thêm giỏ hàng">
+		                <i style="color: white" class="fas fa-shopping-basket"></i>
+		                <span style="color: white">Thêm giỏ hàng</span>
+		                </button>
+		                
+		                <th:block href="/login" th:if="${user.email == null}">
+	                        <a title="Hãy đăng nhập" th:href="@{/login}"class="product-add1" style="background-color: rgb(255, 255, 255);border: 1px solid rgb(0, 198, 198);">
+			                <i style="color: rgb(0, 0, 0)" class="fas fa-credit-card"></i>
+			                <span style="color: rgb(0, 0, 0)">Mua ngay</span>
+			                </a>
+				        </th:block>
+				        
+				        <th:block href="/login" th:if="${user.email != null}">
+	                        <button title="Mua ngay"name="action" value="CHECKOUT" type="submit" class="product-add1" style="background-color: rgb(255, 255, 255);border: 1px solid rgb(0, 198, 198);">
+			                <i style="color: rgb(0, 0, 0)" class="fas fa-credit-card"></i>
+			                <span style="color: rgb(0, 0, 0)">Mua ngay</span>
+			                </button>
+				        </th:block>
+		                
+		              </div>
+                </form>
+                </div>
+               
+              <div class="details-add-group">
+                
+                <div>
+                	<i class="fas fa-truck" style="min-width: 25px;"></i>
+                	<span style="padding-left: 10px;">Miễn phí vận chuyển cho đơn hàng từ 199k.</span>
+                </div>
+                <div>
+                	<i class="fas fa-retweet" style="min-width: 25px;"></i>
+                	<span style="padding-left: 10px;">Đổi trả sản phẩm trong vòng 15 ngày.</span>
+                </div>
+                <div>
+                	<i class="fas fa-credit-card" style="min-width: 25px;"></i>
+                	<span style="padding-left: 10px;">Thanh toán online nhanh chóng tiện lợi.</span>
+                </div>
+                <div>
+                	<i class="fas fa-check-square" style="min-width: 25px;"></i>
+                	<span style="padding-left: 10px;">Tất cả sản phẩm đều là hàng chính hãng 100%.</span>
+                </div>
+                
+              </div>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="inner-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="product-details-frame">
+              <h3 class="frame-title">Mô tả sản phẩm</h3>
+              <div class="tab-descrip">
+                <p>
+                  [[${product.description}]]
+                </p>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section testimonial-part">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="section-heading">
+						<h2>phản hồi của khách hàng</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<th:block th:if="${listComment.isEmpty()}">
+              		<p style="margin-left: 530px;font-size: 22px; color: #0dcaf0;font-weight: bold;">Chưa có đánh giá!</p>
+              	</th:block>
+				<div class="col-lg-12">
+					<div >
+						<ul class="cmt-slider slider-arrow">
+							<li th:each="cmt : ${listComment}"> <!-- DS review -->
+								<div class="testimonial-card">
+									<ul> <!-- Hiển thị sao(mặc định là màu đen) -->
+										<li class="fas fa-star" th:id="${cmt.id} + '_1'"></li>
+										<li class="fas fa-star" th:id="${cmt.id} + '_2'"></li>
+										<li class="fas fa-star" th:id="${cmt.id} + '_3'"></li>
+										<li class="fas fa-star" th:id="${cmt.id} + '_4'"></li>
+										<li class="fas fa-star" th:id="${cmt.id} + '_5'"></li>
+										<script th:inline="javascript">
+										/*<![CDATA[*/
+										    $(document).ready(function() {
+												var rating = /*[(${cmt.rating})]*/ ""; 
+									            for (let i = 0; i < rating; i++) {
+													// Hiển thị rating(sao vàng)
+													let cmtId = /*[(${cmt.id})]*/ "";
+													let id = cmtId + "_";
+									                document.getElementById(id + (i+1)).style.color='orange';
+									            }
+									        });
+										/*]]>*/
+										</script>
+										<span style="padding-left: 10px;font-size: 16px;color: white;">[[${(cmt.rateDate)}]]</span>
+									</ul>
+									
+									<p class="limit-text-comment">[[${cmt.content}]]
+									</p>
+									<h5>[[${cmt.user.name}]]</h5>
+									<img th:src="@{'/loadImage?imageName='+${cmt.user.avatar}}" alt="testimonial" />
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			</div>
+	</section>
+	
+	
+ 
+    <section class="section newitem-part">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="section-heading">
+						<h2>Sản phẩm cùng loại</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<ul class="new-slider slider-arrow">
+						<li th:each="item : ${productByCategory}">
+							<div class="product-card">
+								<div class="product-media">
+									<div class="product-label">
+										<label class="label-text sale">- [[${item.discount + '%'}]]</label>
+									</div>
+									
+									<th:block th:if="${user.email != null}">
+					                    <button class="product-wish" th:if="${item.favorite} == false">
+					                      <i class="fas fa-heart"></i>
+					                    </button>
+					                    
+					                    <button class="product-wish" th:if="${item.favorite} == true" style="color: #fd7e14">
+					                      <i class="fas fa-heart"></i>
+					                    </button>
+				                    
+				                    </th:block>
+				                    
+				                    <th:block th:if="${user.email == null}">
+					                    <button class="product-wish" >
+					                      <i class="fas fa-heart"></i>
+					                    </button>
+				                    </th:block>
+									
+									<a class="product-image"
+										href="javascript:void(0);">
+										<img th:src="@{'/loadImage?imageName='+${item.productImage}}" alt="product" />
+									</a>
+									<div class="product-widget">
+										<th:block href="/login" th:if="${user.email == null}">
+					                      <a
+					                        title="Hãy đăng nhập"
+					                        th:href="@{/login}"
+					                        class="fas fa-heart">
+					                        </a>
+				                        </th:block>
+				                        
+				                        <th:block th:if="${user.email != null}">
+					                      <a th:if="${product.favorite} == false"
+					                        title="Yêu thích"
+					                        th:href="@{/doFavorite(id=${item.productId})}"
+					                        class="fas fa-heart">
+					                        </a>
+				                        
+					                      <a th:if="${product.favorite} == true"
+					                        title="Xóa Yêu thích"
+					                        th:href="@{/doUnFavorite(id=${item.productId})}"
+					                        style="background-color: #fd7e14"
+					                        class="fas fa-heart">
+					                        </a>
+				                        </th:block>
+										<a
+											title="Chi tiết sản phẩm"
+											th:href="@{/productDetail(id=${item.productId})}"
+											class="fas fa-eye">
+										</a>
+									</div>
+								</div>
+								<div class="product-content">
+									
+									<h6 class="product-name">
+										<a href="product-video.html"><span class="limit-text">[[${item.productName}]]</span></a>
+									</h6>
+									<h6 class="product-price">
+										<del>[[${#numbers.formatDecimal(item.price, 1, 'DEFAULT', 0, 'DEFAULT')}+'đ']]</del>
+										<span>[[${#numbers.formatDecimal(item.price - (item.price * item.discount/100), 1, 'DEFAULT', 0, 'DEFAULT')}+'đ']]<small></small></span>
+									</h6>
+									<a class="product-add1" th:href="@{/productDetail(id=${item.productId})}">
+										<i class="fas fa-shopping-basket"></i><span>Xem chi tiết</span>
+									</a>
+								</div>
+							</div>
+						</li>
+						
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="section-btn-25">
+						<a th:href="@{/products}" class="btn btn-outline"><i
+							class="fas fa-eye"></i><span>xem thêm</span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+    
+    	<section class="news-part"
+		style="background: url(images/newsletter.jpg) no-repeat center">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-5 col-lg-6 col-xl-7">
+					<div class="news-text">
+						<h2>Đăng ký nhận thông tin</h2>
+						<p>Đăng ký nhận thông tin cho các sản phẩm mới.</p>
+					</div>
+				</div>
+				<div class="col-md-7 col-lg-6 col-xl-5">
+					<form class="news-form">
+						<input type="text" placeholder="Nhập Địa Chỉ Email Của Bạn" />
+						<button>
+							<span><i class="icofont-ui-email"></i>Gửi</span>
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="intro-part">
+		<div class="container">
+			<div class="row intro-content">
+				<div class="col-sm-6 col-lg-3">
+					<div class="intro-wrap">
+						<div class="intro-icon">
+							<i class="fas fa-truck"></i>
+						</div>
+						<div class="intro-content">
+							<h5>Giao Hàng Tận Nhà Miễn Phí</h5>
+							<p>Miễn phí vận chuyển cho đơn hàng từ 199k.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<div class="intro-wrap">
+						<div class="intro-icon">
+							<i class="fas fa-sync-alt"></i>
+						</div>
+						<div class="intro-content">
+							<h5>Chính Sách Hoàn Trả</h5>
+							<p>Đổi trả sản phẩm trong vòng 15 ngày.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<div class="intro-wrap">
+						<div class="intro-icon">
+							<i class="fas fa-headset"></i>
+						</div>
+						<div class="intro-content">
+							<h5>Cam kết hàng chính hãng</h5>
+							<p>Tất cả sản phẩm đều là hàng chính hãng 100%.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-3">
+					<div class="intro-wrap">
+						<div class="intro-icon">
+							<i class="fas fa-lock"></i>
+						</div>
+						<div class="intro-content">
+							<h5>Cách Thanh Toán An Toàn</h5>
+							<p>Thanh toán online nhanh chóng tiện lợi.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+    
+	<!--************************************
+				Footer Start
+		*************************************-->
+		<footer th:replace="~{/web/fragments/footer :: footer}"></footer>
+				
+		<!--************************************
+				Footer End
+		*************************************-->
+    
+    
+    <script src="vendor/bootstrap/jquery-1.12.4.min.js"></script>
+    <script src="vendor/bootstrap/popper.min.js"></script>
+    <script src="vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="vendor/countdown/countdown.min.js"></script>
+    <script src="vendor/niceselect/nice-select.min.js"></script>
+    <script src="vendor/slickslider/slick.min.js"></script>
+    <script src="vendor/venobox/venobox.min.js"></script>
+    <script src="js/nice-select.js"></script>
+    <script src="js/countdown.js"></script>
+    <script src="js/accordion.js"></script>
+    <script src="js/venobox.js"></script>
+    <script src="js/slick.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
