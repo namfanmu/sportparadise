@@ -59,13 +59,14 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 						<a th:href="@{/profile}" class="header-widget" title="Trang cá nhân">
 							<i class="fas fa-user"></i>
 						</a>
-						</th:block>
 						<a th:href="@{/favorite}" class="header-widget" title="Yêu thích">
 							<i class="fas fa-heart"></i><sup th:text="${totalSave}" id="totalSave">0</sup>
 						</a>
 						<button class="header-widget header-cart" title="Giỏ hàng">
 							<i class="fas fa-shopping-basket"></i> <sup th:text="${totalCartItems}" id="totalCartItems">0</sup>
 						</button>
+						</th:block>
+						
 					</div>
 				</div>
 			</div>

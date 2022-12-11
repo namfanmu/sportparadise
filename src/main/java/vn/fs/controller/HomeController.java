@@ -61,7 +61,7 @@ public class HomeController extends CommomController {
 	// Recommend product
 	public void recommendProduct(Model model, User user) {
 		Long userId = user.getUserId();
-		List<Order> listOrder = orderRepository.findOrderByUserId(userId);
+		List<Order> listOrder = orderRepository.findNewOrderByUserId(userId);
 		List<OrderDetail> listOrderDetails = new ArrayList<>();
 		if(listOrder!=null) {
 			for (Order order : listOrder) {
@@ -75,12 +75,12 @@ public class HomeController extends CommomController {
 				productList.add(product);
 			}
 			if (productList != null) {
-				ArrayList<Integer> listIdProductArrayList = new ArrayList<>();
+				ArrayList<Integer> listIdCategoryArrayList = new ArrayList<>();
 				for (int i = 0; i < productList.size(); i++) {
-					String id = String.valueOf(productList.get(i).getProductId());
-					listIdProductArrayList.add(Integer.valueOf(id));
+					String id = String.valueOf(productList.get(i).getCategory().getCategoryId());
+					listIdCategoryArrayList.add(Integer.valueOf(id));
 				}
-				List<Product> listProducts = productRepository.findByInventoryIds(listIdProductArrayList);
+				List<Product> listProducts = productRepository.findByInventoryCatIds(listIdCategoryArrayList);
 
 				List<Product> listProductNew = new ArrayList<>();
 
@@ -102,6 +102,7 @@ public class HomeController extends CommomController {
 				}
 
 				model.addAttribute("recommendProduct", listProductNew);
+				System.out.println(listProductNew);
 			}
 		}
 	}

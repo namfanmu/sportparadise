@@ -10,5 +10,6 @@ import vn.fs.entities.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 	User findByEmail(String email);
+	User findByUserId(Long userId);
 
 }

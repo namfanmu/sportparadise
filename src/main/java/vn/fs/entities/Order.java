@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -110,14 +112,11 @@ public class Order implements Serializable {
 		this.user = user;
 	}
 	
-	@OneToOne(mappedBy = "order")
-    private Diary diary;
+	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+	  @PrimaryKeyJoinColumn
+	  private Diary diary;
 	
-	public Diary getDiary() {
-		return diary;
-	}
-	
-	public void setDiary(Diary diary) {
-		this.diary = diary;
-	}
+	  public void setDiary(Diary diary) {
+	    this.diary = diary;
+	  }
 }

@@ -69,7 +69,7 @@ public class CartController extends CommomController {
 	
 	@Autowired
 	DiaryRepository diaryRepository;
-
+	
 	public Order orderFinal = new Order();
 
 	public static final String URL_PAYPAL_SUCCESS = "pay/success";
@@ -96,7 +96,7 @@ public class CartController extends CommomController {
 	
 	//Add to cart
 	@RequestMapping(value="/addToCart", method=RequestMethod.POST, params="action=ADD")
-	public String add(@RequestParam("productId") Long productId, HttpServletRequest request, Model model) {
+	public String add(@RequestParam("productId") Long productId, HttpServletRequest request, Model model, User user, CartItem cart) {
 
 		Product product = productRepository.findById(productId).orElse(null);
 		String quantity = request.getParameter("quantity");

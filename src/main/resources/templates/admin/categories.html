@@ -24,6 +24,16 @@
 	<link rel="stylesheet" href="/assets/css/atlantis.min.css">
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="/assets/css/demo.css">
+	<style>
+		table, th, td, tr {
+		  border: 1px solid rgb(128, 255, 255);
+		  border-collapse: collapse;
+		}
+		th, tr, td {
+			text-align: center;
+		}
+		
+	</style>
 </head>
 <body>
 	<div class="wrapper">
@@ -43,7 +53,7 @@
 		<div class="content">
 			<div class="page-inner">
 				<div class="page-header">
-					<h4 class="page-title">Quản lý thể loại</h4>
+					<h4 class="page-title">Quản lý danh mục</h4>
 					<ul class="breadcrumbs">
 						<li class="nav-home">
 							<a href="javascript:void(0);">
@@ -60,7 +70,7 @@
 							<i class="flaticon-right-arrow"></i>
 						</li>
 						<li class="nav-item">
-							<a href="javascript:void(0);">Quản lý thể loại</a>
+							<a href="javascript:void(0);">Quản lý danh mục</a>
 						</li>
 					</ul>
 				</div>
@@ -68,7 +78,7 @@
 						<div class="card">
 							<div class="card-header">
 								<div class="d-flex align-items-center">
-									<h4 class="card-title" style="text-decoration: underline;">Quản lý thể loại</h4>
+									<h4 class="card-title" style="text-decoration: none; font-weight: bold; color: rgb(18 105 219);">Quản lý danh mục</h4>
 									<button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
 										<i class="fa fa-plus"></i>
 										Thêm mới
@@ -82,8 +92,8 @@
 										<div class="modal-content">
 											<div class="modal-header no-bd">
 												<h5 class="modal-title">
-													<span class="fw-mediumbold" style="text-decoration: underline; color: black;">
-													Thêm mới thể loại</span> 
+													<span class="fw-mediumbold" style="text-decoration: none; color: rgb(18 105 219); font-weight: bold; font-size: 20px;">
+													Thêm mới danh mục sản phẩm</span> 
 												
 												</h5>
 												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -95,8 +105,8 @@
 													<div class="row">
 														<div class="col-sm-12">
 															<div class="form-group form-group-default">
-																<label>Tên thể lọai</label>
-																<input th:field="*{categoryName}" id="categoryName" type="text" class="form-control" placeholder="Tên thể lọai" required="required">
+																<label>Tên danh mục</label>
+																<input th:field="*{categoryName}" id="categoryName" type="text" class="form-control" placeholder="Tên danh mục" required="required">
 															</div>
 															<div class="form-group form-group-default">
 																<label>Loại size</label>
@@ -126,33 +136,31 @@
 									<table id="add-row" class="display table table-striped table-hover" >
 										<thead>
 											<tr>
-												<th>ID</th>
-												<th>Name</th>
-												<th style="width: 10%">Action</th>
+												<th style="width: 10%">Mã ID</th>
+												<th>Tên danh mục</th>
+												<th style="width: 19%">Thêm</th>
 											</tr>
 										</thead>
-										<tfoot>
-											<tr>
-												<th>ID</th>
-												<th>Name</th>
-												<th>Action</th>
-											</tr>
-										</tfoot>
+										
 										<tbody>
 											<tr th:each="item : ${categories}">
 												<td>[[${item.categoryId}]]</td>
 												<td>[[${item.categoryName}]]</td>
-												<td>
-													<div class="form-button-action">
-														<a th:href="@{/admin/editCategory/{categoryId}(categoryId=${item.categoryId})}"
-															type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Chỉnh sửa">
-															<i class="fa fa-edit"></i>
+												
+												
+												<td class="text-center">
+													
+													
+													<div style="display: flex;">
+														<a style="cursor: pointer; color: #0e76a8; margin-right: 30px;" th:href="@{/admin/editCategory/{categoryId}(categoryId=${item.categoryId})}"
+															onclick="showConfigConfirmModalDialog(this.getAttribute('data-id'))">
+															<i class="fa fa-edit"> Chỉnh sửa</i>
 														</a>
-														<button th:data-id="${item.categoryId}" th:data-name="${item.categoryName}"
-																onclick="showConfigModalDialog(this.getAttribute('data-id'), this.getAttribute('data-name'))"
-														 		type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Xóa">
-															<i class="fa fa-times"></i>
-														</button>
+														
+														<a style="cursor: pointer;" th:data-id="${item.categoryId}" th:data-name="${item.categoryName}"
+															onclick="showConfigModalDialog(this.getAttribute('data-id'), this.getAttribute('data-name'))">
+															<i class="fas fa-trash-alt text-danger"> Xóa</i>
+														</a>
 													</div>
 												</td>
 											</tr>
@@ -237,12 +245,10 @@
 	<!-- jQuery Scrollbar -->
 	<script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 	<!-- Datatables -->
-	<script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+	<!--<script src="/assets/js/plugin/datatables/datatables.min.js"></script>-->
 	<!-- Atlantis JS -->
 	<script src="/assets/js/atlantis.min.js"></script>
-	<!-- Atlantis DEMO methods, don't include it in your project! -->
-	<script src="/assets/js/setting-demo2.js"></script>
-	<script >
+	<!--<script >
 		$(document).ready(function() {
 			$('#basic-datatables').DataTable({
 			});
@@ -299,6 +305,6 @@
 		});
 		
 		
-	</script>
+	</script>-->
 </body>
 </html>

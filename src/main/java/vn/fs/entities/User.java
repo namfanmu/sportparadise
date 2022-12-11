@@ -124,5 +124,5 @@ public class User implements Serializable{
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
 	}
-
+	
 }

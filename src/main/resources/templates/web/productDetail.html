@@ -164,12 +164,20 @@
 	                	<a th:href="@{/size}">Hướng dẫn chọn size</a>
 	                </div>
 		              <div class="details-list-group">
-		               
-		                <button name="action" value="ADD" type="submit" class="product-add1" style="background-color: rgb(0, 198, 198);margin-right: 90px;" title="Thêm giỏ hàng">
-		                <i style="color: white" class="fas fa-shopping-basket"></i>
+		              	<th:block href="/login" th:if="${user.email == null}">
+	                        <a title="Hãy đăng nhập" th:href="@{/login}" class="product-add1" style="background-color: rgb(0, 198, 198);margin-right: 90px;">
+			                <i style="color: white" class="fas fa-shopping-basket"></i>
 		                <span style="color: white">Thêm giỏ hàng</span>
-		                </button>
-		                
+			                </a>
+				        </th:block>
+				        
+				        <th:block href="/login" th:if="${user.email != null}">
+	                        <button name="action" value="ADD" type="submit" class="product-add1" style="background-color: rgb(0, 198, 198);margin-right: 90px;" title="Thêm giỏ hàng">
+			                <i style="color: white" class="fas fa-shopping-basket"></i>
+			                <span style="color: white">Thêm giỏ hàng</span>
+			                </button>
+				        </th:block>
+		               
 		                <th:block href="/login" th:if="${user.email == null}">
 	                        <a title="Hãy đăng nhập" th:href="@{/login}"class="product-add1" style="background-color: rgb(255, 255, 255);border: 1px solid rgb(0, 198, 198);">
 			                <i style="color: rgb(0, 0, 0)" class="fas fa-credit-card"></i>
@@ -178,7 +186,7 @@
 				        </th:block>
 				        
 				        <th:block href="/login" th:if="${user.email != null}">
-	                        <button title="Mua ngay"name="action" value="CHECKOUT" type="submit" class="product-add1" style="background-color: rgb(255, 255, 255);border: 1px solid rgb(0, 198, 198);">
+	                        <button title="Mua ngay" name="action" value="CHECKOUT" type="submit" class="product-add1" style="background-color: rgb(255, 255, 255);border: 1px solid rgb(0, 198, 198);">
 			                <i style="color: rgb(0, 0, 0)" class="fas fa-credit-card"></i>
 			                <span style="color: rgb(0, 0, 0)">Mua ngay</span>
 			                </button>
@@ -379,7 +387,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="section-btn-25">
-						<a th:href="@{/products}" class="btn btn-outline"><i
+						<a th:href="@{/productByCategory(id=${product.category.categoryId})}" class="btn btn-outline"><i
 							class="fas fa-eye"></i><span>xem thêm</span></a>
 					</div>
 				</div>

@@ -39,7 +39,7 @@
             <div class="user-form-logo">
               <a th:href="@{/}"><img src="images/logo.png" alt="logo" /></a>
             </div>
-            <div class="user-form-card">
+            <div class="user-form-card" style="margin: auto; width: 679px;">
               <div class="user-form-title">
                 <h2>Xác nhận đăng ký!</h2>
                 <p>Thiết Lập Một Tài Khoản Mới</p>
@@ -59,7 +59,7 @@
               <div class="user-form-group">
                 
                 <form th:action="@{/confirmOtpRegister}" method="post" th:object="${user}" class="user-form" style="padding-left: 200px; padding-right: 200px;">
-                    <label for="otp" style="font-weight: 700;">Nhập mã OTP để kích hoạt tài khoản</label>
+                    <label for="otp" style="font-weight: 700; padding-left: 20px; padding-bottom: 5px;">Nhập mã xác thực OTP</label>
                     <div class="form-group">
                         <div class="input-group">
                         <input type="text" hidden="hidden" th:field="*{email}" />
@@ -73,13 +73,13 @@
                         </div>
                     </div>
                   <div class="form-button">
-                    <button type="submit">Xác nhận</button>
+                    <button style="width: 150px;" type="submit">Xác nhận</button>
                   </div>
                 </form>
               </div>
             </div>
-            <div class="user-form-remind">
-              <p>Bạn đã có tài khoản?<a href="login.html">Đăng nhập tại đây</a></p>
+            <div class="user-form-remind" style="margin: auto; width: 679px;">
+              <p>Bạn đã có tài khoản?<a th:href="@{/login}">Đăng nhập tại đây</a></p>
             </div>
             <div class="user-form-footer">
             </div>

@@ -25,7 +25,6 @@ public class Category implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long categoryId;
 	private String categoryName;
-	private String categoryImage;
 	private String sizeId;
 	public Long getCategoryId() {
 		return categoryId;
@@ -38,12 +37,6 @@ public class Category implements Serializable{
 	}
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
-	}
-	public String getCategoryImage() {
-		return categoryImage;
-	}
-	public void setCategoryImage(String categoryImage) {
-		this.categoryImage = categoryImage;
 	}
 	public String getSizeId() {
 		return sizeId;

@@ -22,8 +22,15 @@
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/assets/css/atlantis.min.css">
-	<!-- CSS Just for demo purpose, don't include it in your project -->
-	<link rel="stylesheet" href="/assets/css/demo.css">
+	<style>
+		table, th, td, tr {
+		  border: 1px solid rgb(128, 255, 255);
+		  border-collapse: collapse;
+		}
+		th, tr, td {
+			text-align: center;
+		}
+	</style>
 </head>
 <body>
 	<div class="wrapper">
@@ -68,10 +75,7 @@
 						<div class="card">
 							<div class="card-header">
 								<div class="d-flex align-items-center">
-									<h4 class="card-title" style="text-decoration: underline;">Đơn hàng mới đặt</h4>
-									<a th:href="@{/admin/export}" style="padding-left: 20px;">
-										<h4 class="card-title" style="text-decoration: underline; color: green;">Xuất file Excel</h4>
-									</a>
+									<h4 class="card-title" style="text-decoration: none; font-weight: bold; color: rgb(18 105 219);">Đơn đặt hàng mới</h4>
 								</div>
 							</div>
 							<div class="alert alert-success row col-12"
@@ -82,30 +86,18 @@
 									<table id="add-row" class="display table table-striped table-hover" >
 										<thead>
 											<tr>
-												<th>Mã đơn</th>
+												<th style="width: 6%">Mã ĐH</th>
 												<th>Tên khách hàng</th>
-												<th>SĐT</th>
-												<th>Ngày đặt</th>
+												<th>Số ĐT</th>
+												<th>Ngày đặt hàng</th>
 												<th>Địa chỉ</th>
-												<th>Tổng tiền</th>
-												<th>Xem chi tiết</th>
-												<th style="width: 13%">Hành động</th>
-												<th>Xuất hóa đơn</th>
+												<th style="width: 13%">Tổng tiền</th>
+												<th style="width: 9%">Xem chi tiết</th>
+												<th style="width: 12%">Thêm</th>
+												<th style="width: 10%">Xuất hóa đơn</th>
 											</tr>
 										</thead>
-										<tfoot>
-											<tr>
-												<th>Mã đơn</th>
-												<th>Tên khách hàng</th>
-												<th>SĐT</th>
-												<th>Ngày đặt</th>
-												<th>Địa chỉ</th>
-												<th>Tổng tiền</th>
-												<th>Xem chi tiết</th>
-												<th style="width: 13%">Hành động</th>
-												<th>Xuất hóa đơn</th>
-											</tr>
-										</tfoot>
+										
 										<tbody>
 											<tr th:each="item : ${listOrder}">
 												<td>[[${item.orderId}]]</td>
@@ -116,17 +108,17 @@
 												<td th:text="${#numbers.formatDecimal(item.amount, 1, 'DEFAULT', 0, 'DEFAULT')}+' đ'"></td>
 												<td>
 													<a th:href="@{'/admin/order/detail/'+${item.orderId}}">
-														<i class="fa fa-info-circle"> Chi tiết đơn hàng</i>
+														<i class="fa fa-info-circle"> Xem</i>
 													</a>
 												</td>
 												
 												<td class="text-center">
-													<div th:if="${item.status==0}">
-														<a style="cursor: pointer; color: #0e76a8;" th:data-id="${item.orderId}"
+													<div th:if="${item.status==0}" style="display: flex;">
+														<a style="cursor: pointer; color: #0e76a8; margin-right: 30px;" th:data-id="${item.orderId}"
 															onclick="showConfigConfirmModalDialog(this.getAttribute('data-id'))">
 															<i class="fa fa-check-circle"> Xác nhận</i>
 														</a>
-														<hr>
+														
 														<a style="cursor: pointer;" th:data-id="${item.orderId}"
 															onclick="showConfigCancelModalDialog(this.getAttribute('data-id'))">
 															<i class="fas fa-trash-alt text-danger"> Hủy đơn</i>
@@ -309,12 +301,10 @@
 	<!-- jQuery Scrollbar -->
 	<script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 	<!-- Datatables -->
-	<script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+	<!--<script src="/assets/js/plugin/datatables/datatables.min.js"></script>-->
 	<!-- Atlantis JS -->
 	<script src="/assets/js/atlantis.min.js"></script>
-	<!-- Atlantis DEMO methods, don't include it in your project! -->
-	<script src="/assets/js/setting-demo2.js"></script>
-	<script >
+	<!--<script >
 		$(document).ready(function() {
 			$('#basic-datatables').DataTable({
 			});
@@ -361,6 +351,6 @@
 
 			});
 		});
-	</script>
+	</script>-->
 </body>
 </html>

@@ -81,6 +81,7 @@ public class ProfileController extends CommomController{
 	public Page<Order> findPaginated(Pageable pageable, User user) {
 
 		List<Order> orderPage = orderRepository.findOrderByUserId(user.getUserId());
+		Collections.reverse(orderPage);
 
 		int pageSize = pageable.getPageSize();
 		int currentPage = pageable.getPageNumber();

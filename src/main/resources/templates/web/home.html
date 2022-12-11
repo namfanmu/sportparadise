@@ -128,6 +128,12 @@
 					</div>
 				</div>
 				<div class="row">
+					<th:block th:if="${recommendProduct.isEmpty()}">
+						<div>
+							<p style="color: #0d6efd; margin-left: 390px; font-weight: bold; font-size: 20px;">Bạn chưa mua bất kỳ sản phẩm nào tại SportParadise!</p>
+						</div>
+						
+					</th:block>
 					<div class="col">
 						<ul class="new-slider slider-arrow">
 							<li th:each="item : ${recommendProduct}">

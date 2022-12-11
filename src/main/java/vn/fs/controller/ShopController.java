@@ -56,12 +56,18 @@ public class ShopController extends CommomController {
 
 		commomDataService.commonData(model, user);
 		model.addAttribute("products", productPage);
-
+		if(sort.equals("ASC")) {
+			model.addAttribute("sort", "ASC");
+		} else if(sort.equals("DESC")) {
+			model.addAttribute("sort", "DESC");
+		}  else if(sort.equals("")) {
+			model.addAttribute("sort", "");
+		}
 		return "web/shop";
 	}
 
 	public Page<Product> findPaginated(Pageable pageable, String sort) {
-		List<Product> productPage = null;
+		List<Product> productPage = new ArrayList<>();;
 		if (sort.equals("ASC")) {
 			productPage = productRepository.findAll();
 			productPage.sort(Comparator.comparing(Product::getPrice));
@@ -72,6 +78,7 @@ public class ShopController extends CommomController {
 	    }
 	    if (sort.equals("")) {
 	    	productPage = productRepository.findAll();
+	    	Collections.reverse(productPage);
 	    }
 		int pageSize = pageable.getPageSize();
 		int currentPage = pageable.getPageNumber();
@@ -106,7 +113,6 @@ public class ShopController extends CommomController {
 			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages).boxed().collect(Collectors.toList());
 			model.addAttribute("pageNumbers", pageNumbers);
 		}
-
 		commomDataService.commonData(model, user);
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("products", productPage);
@@ -117,7 +123,7 @@ public class ShopController extends CommomController {
 	
 	// search product
 	public Page<Product> findPaginatSearch(Pageable pageable, @RequestParam("keyword") String keyword, String sort) {
-		List<Product> productPage = null;
+		List<Product> productPage = new ArrayList<>();;
 		if (sort.equals("ASC")) {
 			productPage = productRepository.searchProduct(keyword);
 			productPage.sort(Comparator.comparing(Product::getPrice));
@@ -128,6 +134,7 @@ public class ShopController extends CommomController {
 	    }
 	    if (sort.equals("")) {
 	    	productPage = productRepository.searchProduct(keyword);
+	    	Collections.reverse(productPage);
 	    }
 
 		int pageSize = pageable.getPageSize();
@@ -150,7 +157,7 @@ public class ShopController extends CommomController {
 	// list products by category
 	@GetMapping(value = "/productByCategory")
 	public String listProductbyid(Model model, @RequestParam("id") Long id, @RequestParam(name = "sort", required = false, defaultValue = "") String sort, User user) {
-		List<Product> products = null;
+		List<Product> products = new ArrayList<>();;
 		
 		if (sort.equals("ASC")) {
 			products = productRepository.listProductByCategory(id);
@@ -162,6 +169,7 @@ public class ShopController extends CommomController {
 	    }
 	    if (sort.equals("")) {
 	    	products = productRepository.listProductByCategory(id);
+	    	Collections.reverse(products);
 	    }
 
 		List<Product> listProductNew = new ArrayList<>();

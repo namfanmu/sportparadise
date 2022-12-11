@@ -27,6 +27,8 @@ public class UserDetailService implements UserDetailsService {
 		User user = userRepository.findByEmail(email);
 		if (user == null) {
 			throw new UsernameNotFoundException("Invalid username or password.");
+		} else if (user != null && user.getStatus() == false) {
+			throw new UsernameNotFoundException("Account has been locked.");
 		}
 		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
 				mapRolesToAuthorities(user.getRoles()));

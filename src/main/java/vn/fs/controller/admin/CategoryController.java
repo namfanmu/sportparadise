@@ -99,4 +99,14 @@ public class CategoryController {
 
 		return "redirect:/admin/categories";
 	}
+	
+	// edit category
+		@PostMapping(value = "/editCategory/{id}")
+		public String editCategory(@ModelAttribute("category") Category category, ModelMap model,
+				 HttpServletRequest httpServletRequest, @PathVariable("id") Long id) {
+
+			categoryRepository.update(category.getCategoryName(), category.getSizeId(), id);
+			
+			return "redirect:/admin/categories";
+		}
 }

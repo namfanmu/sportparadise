@@ -1,11 +1,14 @@
 package vn.fs.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import vn.fs.entities.Product;
 
@@ -49,6 +52,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	@Query(value = "select * from products o where product_id in :ids", nativeQuery = true)
 	List<Product> findByInventoryIds(@Param("ids") List<Integer> listProductId);
 	
+	@Query(value = "select * from products o where category_id in :catids", nativeQuery = true)
+	List<Product> findByInventoryCatIds(@Param("catids") List<Integer> listCategoryId);
+	
 	@Query(value = "select * from products where product_id = ?1", nativeQuery = true)
 	Product findProductById(Long id);
 	
@@ -69,5 +75,21 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 		@Query(value = "SELECT * FROM sportparadise_shop.products\r\n"
 				+ "order by discount desc limit 10", nativeQuery = true)
 		public List<Product> listProductByDiscount();
+		
+	// update product
+		@Transactional
+		@Modifying
+		@Query(value = "update sportparadise_shop.products\r\n"
+				+ "set description = ?,\r\n"
+				+ "discount = ?,\r\n"
+				+ "entered_date = ?,\r\n"
+				+ "price = ?,\r\n"
+				+ "product_image = ?,\r\n"
+				+ "product_name = ?,\r\n"
+				+ "quantity = ?,\r\n"
+				+ "category_id = ?\r\n"
+				+ "where product_id = ?", nativeQuery = true)
+		public void update(String des, int dis, Date date, double pri, String img, String name, int qty, Long catId, Long proId);
+
 
 }

@@ -21,5 +21,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 	@Query(value = "SELECT * FROM sportparadise_shop.orders\r\n"
 			+ "	order by order_id desc", nativeQuery = true)
 	List<Order> findAllByIdDESC();
+	
+	@Query(value = "SELECT * FROM sportparadise_shop.orders\r\n"
+			+ "where user_id = ? limit 2", nativeQuery = true)
+	List<Order> findNewOrderByUserId(Long id);
+	
 
 }

@@ -13,7 +13,7 @@
 							<img src="/assets/img/05.png" alt="..." class="avatar-img rounded-circle">
 						</div>
 						<div class="info">
-							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+							<a data-toggle="collapse" href="#collapseExample" aria-expanded="true" style="padding-top: 10px;">
 								<span>
 									[[${user.name}]]
 								</span>
@@ -44,11 +44,7 @@
 							</a>
 							<div class="collapse" id="tables">
 								<ul class="nav nav-collapse">
-									<li>
-										<a th:href="@{/admin/categories}">
-											<span class="sub-item">Quản Lý Thể Loại</span>
-										</a>
-									</li>
+									
 									<li>
 										<a th:href="@{/admin/products}">
 											<span class="sub-item">Quản Lý Sản Phẩm</span>
@@ -64,6 +60,11 @@
 											<span class="sub-item">Quản Lý Khách Hàng</span>
 										</a>
 									</li>
+									<li>
+										<a th:href="@{/admin/categories}">
+											<span class="sub-item">Quản Lý Danh Mục</span>
+										</a>
+									</li>
 								</ul>
 							</div>
 						</li>
@@ -76,33 +77,20 @@
 							<div class="collapse" id="charts">
 								<ul class="nav nav-collapse">
 									<li>
-										<a th:href="@{/admin/reports}">
-											<span class="sub-item">Thống Kê sản Phẩm</span>
+										<a th:href="@{/admin/statisticProduct}">
+											<span class="sub-item">Thống Kê Theo Sản Phẩm</span>
 										</a>
 									</li>
-									<li>
-										<a th:href="@{/admin/reportCategory}">
-											<span class="sub-item">Thống kê thể loại</span>
-										</a>
-									</li>
-									<li>
-										<a th:href="@{/admin/reportYear}">
-											<span class="sub-item">Thống kê theo năm</span>
-										</a>
-									</li>
+									
 									<li>
 										<a th:href="@{/admin/reportMonth}">
-											<span class="sub-item">Thống kê theo tháng</span>
+											<span class="sub-item">Thống Kê Theo Tháng</span>
 										</a>
 									</li>
-									<li>
-										<a th:href="@{/admin/reportQuarter}">
-											<span class="sub-item">Thống kê theo quý</span>
-										</a>
-									</li>
+									
 									<li>
 										<a th:href="@{/admin/reportOrderCustomer}">
-											<span class="sub-item">Thống kê theo khách hàng</span>
+											<span class="sub-item">Thống Kê Theo Thách Hàng</span>
 										</a>
 									</li>
 								</ul>

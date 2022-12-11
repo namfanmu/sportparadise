@@ -22,8 +22,7 @@
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="/assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/assets/css/atlantis.min.css">
-	<!-- CSS Just for demo purpose, don't include it in your project -->
-	<link rel="stylesheet" href="/assets/css/demo.css">
+	<link rel="stylesheet" href="/css/admin_base.css">
 </head>
 <body>
 	<div class="wrapper">
@@ -68,9 +67,9 @@
 						<div class="card">
 							<div class="card-header">
 								<div class="d-flex align-items-center">
-									<h4 class="card-title" style="text-decoration: underline;">Quản lý đơn hàng</h4>
+									<h4 class="card-title" style="text-decoration: none; font-weight: bold; color: rgb(18 105 219);">Quản lý đơn hàng</h4>
 									<a th:href="@{/admin/export}" style="padding-left: 20px;">
-										<h4 class="card-title" style="text-decoration: underline; color: green;">Xuất file Excel</h4>
+										<h4 class="card-title" style="text-decoration: none; color: rgb(0, 255, 0);">Xuất file Excel</h4>
 									</a>
 								</div>
 							</div>
@@ -79,31 +78,20 @@
 								</div>
 							<div class="card-body">
 								<div class="table-responsive">
-									<table id="add-row" class="display table table-striped table-hover" >
+									<table id="add-row" class="display table table-striped table-hover">
 										<thead>
 											<tr>
-												<th>Mã đơn hàng</th>
+												<th>Mã ĐH</th>
 												<th>Tên khách hàng</th>
 												<th>Số ĐT</th>
 												<th>Ngày đặt hàng</th>
 												<th>Địa chỉ</th>
-												<th>Tổng tiền</th>
-												<th>Chi tiết đơn hàng</th>
-												<th style="width: 10%">Hành động</th>
+												<th style="width: 12%">Tổng tiền</th>
+												<th>Xem chi tiết</th>
+												<th style="width: 10%">Thêm</th>
 											</tr>
 										</thead>
-										<tfoot>
-											<tr>
-												<th>Mã đơn hàng</th>
-												<th>Tên khách hàng</th>
-												<th>Số ĐT</th>
-												<th>Ngày đặt hàng</th>
-												<th>Địa chỉ</th>
-												<th>Tổng tiền</th>
-												<th>Chi tiết đơn hàng</th>
-												<th style="width: 10%">Hành động</th>
-											</tr>
-										</tfoot>
+										
 										<tbody>
 											<tr th:each="item : ${orderDetails}">
 												<td>[[${item.orderId}]]</td>
@@ -114,17 +102,17 @@
 												<td th:text="${#numbers.formatDecimal(item.amount, 1, 'DEFAULT', 0, 'DEFAULT')}+' đ'"></td>
 												<td>
 													<a th:href="@{'/admin/order/detail/'+${item.orderId}}">
-														<i class="fa fa-info-circle"> Chi tiết đơn hàng</i>
+														<i class="fa fa-info-circle"> Xem</i>
 													</a>
 												</td>
 												
 												<td class="text-center">
-													<div th:if="${item.status==0}">
-														<a style="cursor: pointer; color: #0e76a8;" th:data-id="${item.orderId}"
+													<div th:if="${item.status==0}" style="display: flex;">
+														<a style="cursor: pointer; color: #0e76a8; margin-right: 30px;" th:data-id="${item.orderId}"
 															onclick="showConfigConfirmModalDialog(this.getAttribute('data-id'))">
 															<i class="fa fa-check-circle"> Xác nhận</i>
 														</a>
-														<hr>
+														
 														<a style="cursor: pointer;" th:data-id="${item.orderId}"
 															onclick="showConfigCancelModalDialog(this.getAttribute('data-id'))">
 															<i class="fas fa-trash-alt text-danger"> Hủy đơn</i>
@@ -150,6 +138,26 @@
 											</tr>
 										</tbody>
 									</table>
+									
+									<!-- pagination  -->
+		                            <div class="row">
+						              <div class="col-lg-12">
+						                <div class="bottom-paginate">
+						                  <p class="page-info"></p>
+						                  <ul class="pagination">
+						                    
+						                    <li th:each="pageNumber : ${pageNumbers}" th:if="${orderDetails.totalPages > 0}" class="page-item">
+						                      <a class="page-link"
+						                      		th:href="@{/admin/orders(size=${orderDetails.size}, page=${pageNumber})}"
+						                      		th:class="${pageNumber==orderDetails.number + 1} ? 'page-link active'">
+						                      		[[${pageNumber}]]
+						                      </a>
+						                    </li>
+						                    
+						                  </ul>
+						                </div>
+						              </div>
+						            </div>
 									
 									<!-- Xác nhận đơn -->
 									<script>
@@ -301,12 +309,10 @@
 	<!-- jQuery Scrollbar -->
 	<script src="/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
 	<!-- Datatables -->
-	<script src="/assets/js/plugin/datatables/datatables.min.js"></script>
+	<!--<script src="/assets/js/plugin/datatables/datatables.min.js"></script>-->
 	<!-- Atlantis JS -->
 	<script src="/assets/js/atlantis.min.js"></script>
-	<!-- Atlantis DEMO methods, don't include it in your project! -->
-	<script src="/assets/js/setting-demo2.js"></script>
-	<script >
+	<!--<script >
 		$(document).ready(function() {
 			$('#basic-datatables').DataTable({
 			});
@@ -353,6 +359,6 @@
 
 			});
 		});
-	</script>
+	</script>-->
 </body>
 </html>

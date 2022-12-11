@@ -126,6 +126,12 @@
             
             <!-- item product -->
             <div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4">
+            	<th:block th:if="${products.isEmpty()}">
+						<div style="margin: auto; font-size: 18px; font-weight: bold; color: red;">
+							<p>Không có sản phẩm nào!</p>
+						</div>
+						
+				</th:block>
               <div class="col" th:each="item : ${products}">
                 <div class="product-card">
                   <div class="product-media">

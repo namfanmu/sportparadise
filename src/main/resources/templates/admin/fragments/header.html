@@ -36,7 +36,10 @@
 						<li class="nav-item dropdown hidden-caret" style="margin-right: 10px;">
 							<a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								<i class="fa fa-bell" style="font-size: 24px;"></i>
-								<span class="notification" style="font-size: 14px;">[[${newDiary}]]</span>
+								<th:block th:if="${newDiary}!=0">
+									<span class="notification" style="font-size: 14px;">[[${newDiary}]]</span>
+								</th:block>
+								
 							</a>
 							<ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
 								<li>

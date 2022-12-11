@@ -208,11 +208,28 @@
 	                  <ul class="pagination">
 	                    
 	                    <li th:each="pageNumber : ${pageNumbers}" th:if="${products.totalPages > 0}" class="page-item">
-	                      <a class="page-link"
-	                      		th:href="@{/products(size=${products.size}, page=${pageNumber})}"
-	                      		th:class="${pageNumber==products.number + 1} ? 'page-link active'">
-	                      		[[${pageNumber}]]
-	                      </a>
+	                    	<th:block th:if="${sort=='ASC'}">
+	                    		<a class="page-link"
+		                      		th:href="@{/products(size=${products.size}, page=${pageNumber}, sort='ASC')}"
+		                      		th:class="${pageNumber==products.number + 1} ? 'page-link active'">
+		                      		[[${pageNumber}]]
+		                      	</a>
+	                    	</th:block>
+	                    	<th:block th:if="${sort=='DESC'}">
+	                    		<a class="page-link"
+		                      		th:href="@{/products(size=${products.size}, page=${pageNumber}, sort='DESC')}"
+		                      		th:class="${pageNumber==products.number + 1} ? 'page-link active'">
+		                      		[[${pageNumber}]]
+		                      	</a>
+	                    	</th:block>
+	                    	<th:block th:if="${sort==''}">
+	                    		<a class="page-link"
+		                      		th:href="@{/products(size=${products.size}, page=${pageNumber})}"
+		                      		th:class="${pageNumber==products.number + 1} ? 'page-link active'">
+		                      		[[${pageNumber}]]
+		                        </a>
+	                    	</th:block>
+	                      
 	                    </li>
 	                    
 	                  </ul>

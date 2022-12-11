@@ -22,6 +22,7 @@
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../../assets/css/atlantis.min.css">
+	<link rel="stylesheet" href="/css/admin_base.css">
 </head>
 <body>
 	<div class="wrapper">
@@ -36,12 +37,12 @@
 	<th:block th:replace="~{admin/fragments/navbar :: navbar}"></th:block>
 	
 	<!-- End Navbar -->
-	
+		
 	<div class="main-panel">
 		<div class="content">
 			<div class="page-inner">
 				<div class="page-header">
-					<h4 class="page-title">Quản lý danh mục</h4>
+					<h4 class="page-title">Quản Lý Thống Kê</h4>
 					<ul class="breadcrumbs">
 						<li class="nav-home">
 							<a href="#">
@@ -58,58 +59,44 @@
 							<i class="flaticon-right-arrow"></i>
 						</li>
 						<li class="nav-item">
-							<a href="#">Quản lý danh mục</a>
+							<a href="#">Quản Lý Thống Kê</a>
 						</li>
 					</ul>
 				</div>
 					<div class="col-md-12">
 						<div class="card">
 							<div class="card-header">
-								<div class="d-flex align-items-center">
-									<h4 class="card-title" style="text-decoration: none; font-weight: bold; color: rgb(18 105 219);">Chỉnh sửa danh mục sản phẩm</h4>
+									<div class="d-flex align-items-center">
+										<h4 class="card-title" style="text-decoration: none; font-weight: bold; color: rgb(18 105 219);">Thống Kê Theo Sản Phẩm</h4>
+									</div>
 								</div>
-							</div>
-							<div class="card-header">
-								<section class="row">
-						           <div class="col-6 offset-3 mt-4">
-						             <form th:action="@{/admin/editCategory/{categoryId}(categoryId=${category.categoryId})}" th:object="${category}" method="post">
-							             <div class="card">
-							                 <div class="card-body">
-							                     <div class="form-group">
-							                       <label for="categoryId">ID <a style="color: red"><strong>*</strong></a></label>
-							                       <input type="hidden">
-							                       <input type="text" th:field="*{categoryId}" class="form-control" name="categoryId" id="categoryId" aria-describedby="categoryhelpId" placeholder="Mã thể loại ?" readonly="readonly">
-							                     </div>
-							                     <div class="form-group">
-							                       <label for="name">Tên danh mục <a style="color: red"><strong>*</strong></a></label>
-							                       <input type="text" th:field="*{categoryName}" class="form-control" id="categoryName" aria-describedby="namhelpId" placeholder="Tên danh mục ?">
-							                     </div>
-							                     <div class="form-group">
-							                       <label for="name">Loại size <a style="color: red"><strong>*</strong></a></label>
-							                       <select class="form-control" name="sizeId" id="sizeId" th:field="*{sizeId}">
-														<option value="0">Không có size</option>
-														<option value="1">Size Quần Áo</option>
-														<option value="2">Size Giày</option>
-													</select>
-							                     </div>
-							                 </div>
-							                 <div class="card-footer text-muted">
-							                 	<div class="modal-footer no-bd">
-													<button type="submit" id="" class="btn btn-primary">Cập nhật</button>
-													<button type="submit" class="btn btn-danger" data-dismiss="modal"  formaction="/admin/categories" formmethod="get">Hủy</button>
-												</div>
-							
-							                 </div>
-							             </div>
-						           		</form>
-						           </div>
-								</section>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table id="add-row" class="display table table-striped table-hover" >
+										<thead>
+											<tr>
+												<th>STT</th>
+												<th>Tháng</th>
+												<th>Số lượng bán ra</th>
+												<th>Doanh thu</th>
+											</tr>
+										</thead>
+										
+										<tbody>
+											<tr th:each="item, iState : ${listReportCommon}">
+												<td>[[${iState.index + 1}]]</td>
+												<td>[[${item[0]}]]</td>
+												<td>[[${item[1]}]]</td>
+												<td>[[${#numbers.formatDecimal(item[2], 1, 'DEFAULT', 0, 'DEFAULT')} + ' đ']]</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		
 		<footer class="footer">
 			<div class="container-fluid">
 				<nav class="pull-left">
@@ -137,10 +124,8 @@
 			</div>
 		</footer>
 	</div>
-	
-	
-	
 
+		<!-- End Custom template -->
 	</div>
 	<!--   Core JS Files   -->
 	<script src="../../assets/js/core/jquery.3.2.1.min.js"></script>
@@ -152,9 +137,8 @@
 	
 	<!-- jQuery Scrollbar -->
 	<script src="../../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
-	<!-- Datatables -->
-	<script src="../../assets/js/plugin/datatables/datatables.min.js"></script>
 	<!-- Atlantis JS -->
 	<script src="../../assets/js/atlantis.min.js"></script>
+	
 </body>
 </html>
