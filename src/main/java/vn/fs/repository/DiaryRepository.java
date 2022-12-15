@@ -14,7 +14,8 @@ public interface DiaryRepository extends JpaRepository<Diary, Long> {
 	
 	@Modifying
 	@Transactional
-	@Query(value = "delete from sportparadise_shop.diary", nativeQuery = true)
-	public void delDiary();
+	@Query(value = "delete FROM sportparadise_shop.diary\r\n"
+			+ "where order_order_id = ?;", nativeQuery = true)
+	public void delDiary(Long id);
 
 }

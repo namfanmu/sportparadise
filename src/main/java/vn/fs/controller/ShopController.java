@@ -121,7 +121,6 @@ public class ShopController extends CommomController {
 		return "web/searchProduct";
 	}
 	
-	// search product
 	public Page<Product> findPaginatSearch(Pageable pageable, @RequestParam("keyword") String keyword, String sort) {
 		List<Product> productPage = new ArrayList<>();;
 		if (sort.equals("ASC")) {

@@ -39,34 +39,6 @@ public class ReportController {
 	@Autowired
 	CommomDataService commomDataService;
 
-	// Statistics by product sold
-//	@GetMapping(value = "/admin/statisticProductByQty")
-//	public String statisticProductByQty(Model model, Principal principal) throws SQLException {
-//		User user = userRepository.findByEmail(principal.getName());
-//		model.addAttribute("user", user);
-//
-//		OrderDetail orderDetail = new OrderDetail();
-//		model.addAttribute("orderDetail", orderDetail);
-//		List<Object[]> listReportCommon = orderDetailRepository.repoQty();
-//		model.addAttribute("listReportCommon", listReportCommon);
-//
-//
-//		return "admin/statisticProduct";
-//	}
-//	
-//	@GetMapping(value = "/admin/statisticProductByTo")
-//	public String statisticProductByTo(Model model, Principal principal) throws SQLException {
-//		User user = userRepository.findByEmail(principal.getName());
-//		model.addAttribute("user", user);
-//
-//		OrderDetail orderDetail = new OrderDetail();
-//		model.addAttribute("orderDetail", orderDetail);
-//		List<Object[]> listReportCommon = orderDetailRepository.repoTo();
-//		model.addAttribute("listReportCommon", listReportCommon);
-//
-//
-//		return "admin/statisticProduct";
-//	}
 	
 	@GetMapping(value = "/admin/statisticProduct")
 	public String statisticProduct(Model model, Pageable pageable, @RequestParam("page") Optional<Integer> page,

@@ -45,15 +45,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
 		http.csrf().disable();
-		
 		// Admin page
 		http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
-		
-		// If you are not logged in, you will be redirected to the /login page.
+		// chưa logged in, redirected to the /login page.
 		http.authorizeRequests().antMatchers("/checkout").access("hasRole('ROLE_USER')");
-		
 		http.authorizeRequests()
 			.antMatchers("/**").permitAll()
 			.anyRequest().authenticated()
@@ -72,11 +68,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 			.logoutSuccessUrl("/?logout_success")
 			.permitAll();
-			
-		 // remember-me
+		// remember-me
 		http.rememberMe()
 			.rememberMeParameter("remember");
-		
 	}
 
 }

@@ -31,5 +31,4 @@ public class ChangePassword {
 		this.confirmPassword = confirmPassword;
 	}
 	
-	
 }

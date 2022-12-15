@@ -124,6 +124,7 @@ public class ProductController{
 
 		return productPages;
 	}
+	
 	// add product
 	@PostMapping(value = "/addProduct")
 	public String addProduct(@ModelAttribute("product") Product product, ModelMap model,
@@ -157,7 +158,6 @@ public class ProductController{
 	public List<Category> showCategory(Model model) {
 		List<Category> categoryList = categoryRepository.findAll();
 		model.addAttribute("categoryList", categoryList);
-
 		return categoryList;
 	}
 	
@@ -167,7 +167,6 @@ public class ProductController{
 		Product product = productRepository.findById(id).orElse(null);
 		
 		model.addAttribute("product", product);
-
 		return "admin/editProduct";
 	}
 

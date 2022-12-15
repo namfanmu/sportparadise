@@ -153,7 +153,6 @@ public class OrderController {
 			listOrder.add(order);
 		}
 		model.addAttribute("listOrder", listOrder);
-		diaryRepository.delDiary();
 		return "admin/newOrder";
 	}
 
@@ -260,9 +259,7 @@ public class OrderController {
         HtmlConverter.convertToPdf(orderHtmlList, target, converterProperties);
 
         byte[] bytes = target.toByteArray();
-
-
-
+        diaryRepository.delDiary(id);
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(bytes);

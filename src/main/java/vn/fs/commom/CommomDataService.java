@@ -49,16 +49,11 @@ public class CommomDataService {
 		if (user != null) {
 			totalSave = favoriteRepository.selectCountSave(user.getUserId());
 		}
-
 		Integer totalCartItems = shoppingCartService.getCount();
-
 		model.addAttribute("totalSave", totalSave);
-
 		model.addAttribute("totalCartItems", totalCartItems);
-
 		Collection<CartItem> cartItems = shoppingCartService.getCartItems();
 		model.addAttribute("cartItems", cartItems);
-
 	}
 	
 	// count product by category
@@ -72,7 +67,6 @@ public class CommomDataService {
 	public void sendSimpleEmail(String email, String subject, String contentEmail, Collection<CartItem> cartItems,
 			double totalPrice, Order orderFinal) throws MessagingException {
 		Locale locale = LocaleContextHolder.getLocale();
-
 		// Prepare the evaluation context
 		Context ctx = new Context(locale);
 		ctx.setVariable("cartItems", cartItems);
@@ -87,9 +81,7 @@ public class CommomDataService {
 		String htmlContent = "";
 		htmlContent = templateEngine.process("mail/email_en.html", ctx);
 		mimeMessageHelper.setText(htmlContent, true);
-
 		// Send Message!
 		emailSender.send(mimeMessage);
-
 	}
 }

@@ -53,6 +53,7 @@
 	            <th>Số lượng</th>
 	            <th>Size</th>
 	            <th>Giá(VNĐ)</th>
+	            <th>Giảm giá</th>
 	        </tr>
 	        </thead>
 	        <tbody>
@@ -61,6 +62,7 @@
 	            <td th:text="${item.quantity}"></td>
 	            <td th:text="${item.size}"></td>
 	            <td th:text="${#numbers.formatDecimal(item.product.price, 1, 'DEFAULT', 0, 'DEFAULT')}"></td>
+	            <td th:text="${item.product.discount + '%'}"></td>
 	        </tr>
 	        </tbody>
 	    </table>

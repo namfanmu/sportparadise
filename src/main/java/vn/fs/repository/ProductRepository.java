@@ -66,7 +66,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	
 
 	
-	// dem so luong ba ban cua 1 san pham
+	// dem so luong da ban cua 1 san pham
 	@Query(value = "SELECT SUM(quantity) AS TotalItemsOrdered FROM sportparadise_shop.order_details\r\n"
 			+ "where product_id = ?;", nativeQuery = true)
 	public int getSoldQuantity(Long productId);

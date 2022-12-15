@@ -82,7 +82,6 @@ public class AccountController {
 			@Valid @ModelAttribute("changePassword") ChangePassword changePassword, BindingResult result,
 			@RequestParam("email") String email, @RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword) {
 		if (result.hasErrors()) {
-
 			model.addAttribute("newPassword", newPassword);
 			model.addAttribute("newPassword", confirmPassword);
 			model.addAttribute("email", email);
@@ -90,7 +89,6 @@ public class AccountController {
 		}
 
 		if (!changePassword.getNewPassword().equals(changePassword.getConfirmPassword())) {
-
 			model.addAttribute("newPassword", newPassword);
 			model.addAttribute("newPassword", confirmPassword);
 			model.addAttribute("error", "error");

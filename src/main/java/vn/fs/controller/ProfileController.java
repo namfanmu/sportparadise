@@ -114,7 +114,6 @@ public class ProfileController extends CommomController{
 		Order order = orderRepository.findOrderById(id);
 		model.addAttribute("orderDetail", listO);
 		model.addAttribute("order", order);
-		// set active front-end
 		commomDataService.commonData(model, user);
 		
 		return new ModelAndView("web/historyOrderDetail");
